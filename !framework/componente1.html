@@ -1,0 +1,33 @@
+<componente1>
+    <style>
+        componente1 {
+            &>p {
+                color: green;
+                font-size: 10px !important;
+            }
+        }
+    </style>
+
+    <p>compo 1 </p>
+
+
+    <script>
+        class Componente1 extends Component {
+            constructor(param) {
+                super(param)
+
+
+
+
+            }
+            meterEnBody() {
+                this.insert(app.root)
+            }
+            meterEnP() {
+                this.insert(document.querySelector("p"))
+            }
+            gritar() { alert(1111) }
+        }
+    </script>
+
+</componente1>

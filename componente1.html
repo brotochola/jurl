@@ -1,0 +1,41 @@
+<style>
+    p {
+
+        font-size: 20px !important;
+        font-weight: bold;
+    }
+
+    componente1 {
+        position: relative;
+        display: inline-block;
+        width: 150px;
+        height: 200px;
+        border: 1px solid black;
+    }
+</style>
+
+
+<componente1>
+    <p>compo 1 </p>
+    <button>change color</button>
+</componente1>
+
+
+
+<script>
+    class Componente1 extends Component {
+        constructor() {
+            super()
+            this.$("button").onclick = e => this.onClickButton(e)
+        }
+        onClickButton(e) {
+            this.setAttribute("color", Math.random() * 99999999)
+        }
+
+        onChange(e) {
+            console.log("componente 1 cambio", e)
+        }
+
+    }
+    customElements.define("app-componente1", Componente1)
+</script>

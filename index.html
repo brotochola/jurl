@@ -1,0 +1,38 @@
+<html>
+
+<head>
+    <script src="utils.js"></script>
+    <script src="component.js"></script>
+    <script src="app.js"></script>
+    <script>
+        let app
+        async function start() {
+            app = new App(document.querySelector("app"))
+            // await app.load("componente3.html")
+            await app.load("componente2.html")
+            await app.load("componente1.html")
+
+
+            app.init()
+
+            // c1 = new Componente1()
+            // c2 = new Componente2()
+            // c1.insert(app.root)
+            // c2.insert(app.root)
+        }
+
+
+    </script>
+</head>
+
+<body onload="start()">
+    <app>
+        <app-componente2 popo="1"></app-componente2>
+
+
+    </app>
+
+
+</body>
+
+</html>

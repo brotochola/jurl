@@ -1,0 +1,49 @@
+<style>
+    #cont {
+        gap: 10px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: space-around;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+
+<componente2>
+    <p>compo2: varios compo 1</p>
+    <button class="boton1"> add</button>
+    <div id="cont">
+        <app-componente1 color="red" col="blue"></app-componente1>
+        <app-componente1 color="green"></app-componente1>
+        <app-componente1></app-componente1>
+        <app-componente1></app-componente1>
+        <app-componente1></app-componente1>
+    </div>
+</componente2>
+
+
+
+<script>
+    class Componente2 extends Component {
+        constructor(param) {
+
+            super(param)
+
+            this.$(".boton1").onclick = e => this.handleClick(e)
+
+
+
+
+        }
+        handleClick(e) {
+            this.$("#cont").innerHTML += "<app-componente1></app-componente1>"
+        }
+        connectedCallback() {
+
+            // this.$("#cont").innerHTML += "<app-componente1></app-componente1>"
+        }
+
+    }
+    customElements.define("app-componente2", Componente2)
+</script>
