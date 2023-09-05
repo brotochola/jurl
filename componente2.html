@@ -13,9 +13,10 @@
 <componente2>
     <p>compo2: varios compo 1</p>
     <button class="boton1"> add</button>
+    <button class="changeValBut"> change value of varOfCompo2</button>
     <div id="cont">
-        <app-componente1 color="red" col="blue"></app-componente1>
-        <app-componente1 color="green"></app-componente1>
+        <app-componente1 color="red" randomvar="{{varofcompo2}}" onload="alert(1)"></app-componente1>
+        <app-componente1 color="purple"></app-componente1>
         <app-componente1></app-componente1>
         <app-componente1></app-componente1>
         <app-componente1></app-componente1>
@@ -26,22 +27,27 @@
 
 <script>
     class Componente2 extends Component {
-        constructor(param) {
+        constructor() {
 
-            super(param)
+            super()
+            this.setAttribute("varofcompo2", "holissss")
+
 
             this.$(".boton1").onclick = e => this.handleClick(e)
+            this.$(".changeValBut").onclick = e => {
+                this.setAttribute("varofcompo2", "pedoo")
+            }
 
 
 
 
         }
         handleClick(e) {
-            this.$("#cont").innerHTML += "<app-componente1></app-componente1>"
+            let newCompo1 = (new DOMParser()).parseFromString("<app-componente1 />", "text/html").querySelector("app-componente1")
+            this.$("#cont").appendChild(newCompo1)
         }
         connectedCallback() {
 
-            // this.$("#cont").innerHTML += "<app-componente1></app-componente1>"
         }
 
     }

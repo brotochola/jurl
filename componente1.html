@@ -1,6 +1,7 @@
 <style>
     p {
-
+        /* CSS VARIABLES ARE LINKED WITH ATTRIBUTES */
+        color: var(--color);
         font-size: 20px !important;
         font-weight: bold;
     }
@@ -27,13 +28,22 @@
         constructor() {
             super()
             this.$("button").onclick = e => this.onClickButton(e)
+
+
+
+
+        }
+        onInit() {
+            console.log("compo 1 on init", this.uid)
         }
         onClickButton(e) {
-            this.setAttribute("color", Math.random() * 99999999)
+            this.setAttribute("color", randomColor())
         }
 
         onChange(e) {
-            console.log("componente 1 cambio", e)
+            // console.log("componente 1 cambio", e)
+            // console.log(this.parsedAttributes)
+            if (this.parsedAttributes.randomvar) this.$("button").innerHTML = this.parsedAttributes.randomvar
         }
 
     }
