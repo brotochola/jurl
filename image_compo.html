@@ -1,0 +1,44 @@
+<style>
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+
+    }
+</style>
+
+
+<image_compo>
+    <img>
+
+</image_compo>
+
+
+
+<script>
+    class Image_compo extends Component {
+        constructor() {
+            super()
+
+
+
+        }
+        onInit() {
+            console.log(this.parsedAttributes.src)
+            this.$("img").src = this.parsedAttributes.src
+
+
+        }
+
+        onChange(e) {
+            // this.setAttribute("inherited-color", this.parsedAttributes["color-of-tooltip"])
+            // console.log("componente 1 cambio", e)
+            // console.log(this.parsedAttributes)
+            // this.setAttribute("color", this.parsedAttributes.randomvar)
+            // if (this.parsedAttributes.randomvar) this.$("button").innerHTML = this.parsedAttributes.randomvar
+
+        }
+
+    }
+    customElements.define("app-image-compo", Image_compo)
+</script>

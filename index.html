@@ -9,16 +9,15 @@
         async function start() {
             app = new App(document.querySelector("app"))
             // await app.load("componente3.html")
-            await app.load("componente2.html")
-            await app.load("componente1.html")
+            await app.loadComponent("componente2.html")
+            await app.loadComponent("componente1.html")
+            await app.loadComponent("tooltip.html")
+            await app.loadComponent("image_compo.html")
 
 
             app.init()
 
-            // c1 = new Componente1()
-            // c2 = new Componente2()
-            // c1.insert(app.root)
-            // c2.insert(app.root)
+
         }
 
 

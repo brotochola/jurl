@@ -13,12 +13,21 @@
         height: 200px;
         border: 1px solid black;
     }
+
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
 </style>
 
 
 <componente1>
-    <p>compo 1 </p>
+    <p class="title">compo 1</p>
+    <app-image-compo src="{{imgurl}}" />
     <button>change color</button>
+    <app-tooltip tooltip-color="{{inherited-color}}" />
+
 </componente1>
 
 
@@ -29,21 +38,36 @@
             super()
             this.$("button").onclick = e => this.onClickButton(e)
 
+            if (this.parsedAttributes.item) {
+                this.setAttribute("imgurl", (this.parsedAttributes.item || {}).image)
+                // this.$("app-image-compo").setAttribute("src", (this.parsedAttributes.item || {}).image)
+            }
+
+            this.$(".title").innerHTML = ((this.parsedAttributes || {}).item || {}).name
 
 
 
         }
         onInit() {
-            console.log("compo 1 on init", this.uid)
+            // console.log("compo 1 on init", this.uid)
+
+
+            // this.$("componente1").appendChild(app.createComponent("<app-tooltip color='{{color}}' />", "text/html"))
+            // this.$("componente1").appendChild(app.createComponent("<app-tooltip  />", "text/html"))
+
+            window.debugC1 = this
         }
         onClickButton(e) {
             this.setAttribute("color", randomColor())
         }
 
         onChange(e) {
+            // this.setAttribute("inherited-color", this.parsedAttributes["color-of-tooltip"])
             // console.log("componente 1 cambio", e)
             // console.log(this.parsedAttributes)
-            if (this.parsedAttributes.randomvar) this.$("button").innerHTML = this.parsedAttributes.randomvar
+            // this.setAttribute("color", this.parsedAttributes.randomvar)
+            // if (this.parsedAttributes.randomvar) this.$("button").innerHTML = this.parsedAttributes.randomvar
+
         }
 
     }

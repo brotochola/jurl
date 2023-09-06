@@ -85,7 +85,11 @@ class App {
     elem.querySelectorAll(" script").forEach((k) => k.remove());
   }
 
-  async load(html) {
+  createComponent(txt) {
+    return new DOMParser().parseFromString(txt, "text/html").body.children[0];
+  }
+
+  async loadComponent(html) {
     let req = await fetch(html + "?fd=" + Math.random() * 99999);
     let content = await req.text();
     let elem = document.createElement("html");

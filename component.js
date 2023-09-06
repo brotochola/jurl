@@ -3,7 +3,7 @@ class Component extends HTMLElement {
     // console.log("constructor Component!");
     super();
 
-    this.uid = Math.floor(Math.random() * 999999999);
+    this.uid = Math.floor(Math.random() * 9999999999999999).toString(24);
 
     const nameOfClassThatCalledThis = this.constructor.name.toLowerCase();
 
@@ -22,6 +22,20 @@ class Component extends HTMLElement {
     this.initObsrever();
     this.updateParsedAttributes();
     // console.log(Array.from(this.attributes));
+  }
+  setCSSVariable(varName, val) {
+    this.style.setProperty("--" + varName, val);
+  }
+  getCSSVariable(varName) {
+    let elem = this;
+    while (elem && !elem.style.getPropertyValue("--" + varName)) {
+      elem = elem.getParentComponent();
+    }
+    if (elem && elem.style.getPropertyValue("--" + varName)) {
+      return elem.style.getPropertyValue("--" + varName);
+    }
+
+    return null;
   }
 
   getParentComponent() {
@@ -50,6 +64,8 @@ class Component extends HTMLElement {
         } catch (e) {
           // console.warn(e);
         }
+      } else if (k.value.startsWith("%") && decodeAttr(k.value)) {
+        this.parsedAttributes[k.name] = decodeAttr(k.value);
       } else {
         this.parsedAttributes[k.name] = k.value;
         // this.root.setAttribute(k.name, k.value);
@@ -106,8 +122,11 @@ class Component extends HTMLElement {
   }
   connectedCallback() {
     // console.log(this.constructor.name, this.uid, "appeared");
-    setTimeout(() => this.updateParsedAttributes(), 1);
-    if (this.onInit instanceof Function) this.onInit();
+
+    setTimeout(() => {
+      this.updateParsedAttributes();
+      if (this.onInit instanceof Function) this.onInit();
+    }, 1);
   }
   disconnectedCallback() {
     // console.log(this.constructor.name, this.uid, "died", this);

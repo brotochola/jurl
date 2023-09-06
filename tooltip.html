@@ -1,0 +1,45 @@
+<style>
+    tooltip {
+        position: relative;
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+
+        background-color: var(--color-of-tooltip);
+        border: 1px solid black;
+    }
+</style>
+
+
+<tooltip>
+    <div class="circle"></div>
+
+</tooltip>
+
+
+
+<script>
+    class Tooltip extends Component {
+        constructor() {
+            super()
+            // this.$("button").onclick = e => this.onClickButton(e)
+
+
+            this.color = this.parsedAttributes.color
+
+        }
+        onInit() {
+            // console.log("compo 1 on init", this.uid)
+        }
+
+
+        onChange(e) {
+            // console.log("componente 1 cambio", e)
+            // console.log(this.parsedAttributes)
+            // if (this.parsedAttributes.randomvar) this.$("button").innerHTML = this.parsedAttributes.randomvar
+        }
+
+    }
+    customElements.define("app-tooltip", Tooltip)
+</script>

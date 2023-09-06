@@ -14,12 +14,14 @@
     <p>compo2: varios compo 1</p>
     <button class="boton1"> add</button>
     <button class="changeValBut"> change value of varOfCompo2</button>
+    <button class="next">next</button>
+    <button class="prev">prev</button>
     <div id="cont">
-        <app-componente1 color="red" randomvar="{{varofcompo2}}" onload="alert(1)"></app-componente1>
+        <!-- <app-componente1 color="red" randomvar="{{varofcompo2}}" onload="alert(1)"></app-componente1>
         <app-componente1 color="purple"></app-componente1>
         <app-componente1></app-componente1>
         <app-componente1></app-componente1>
-        <app-componente1></app-componente1>
+        <app-componente1></app-componente1> -->
     </div>
 </componente2>
 
@@ -27,6 +29,7 @@
 
 <script>
     class Componente2 extends Component {
+
         constructor() {
 
             super()
@@ -35,20 +38,54 @@
 
             this.$(".boton1").onclick = e => this.handleClick(e)
             this.$(".changeValBut").onclick = e => {
-                this.setAttribute("varofcompo2", "pedoo")
+                this.setCSSVariable("color-of-tooltip", randomColor())
+            }
+
+            this.$(".next").onclick = e => {
+                if (this.cards) {
+                    this.loadPageOfResults(this.cards.info.next)
+                }
+            }
+
+            this.$(".prev").onclick = e => {
+                if (this.cards) {
+                    this.loadPageOfResults(this.cards.info.prev)
+                }
             }
 
 
 
+        }
+        async loadPageOfResults(url) {
+            this.cards = await getDataFromAPI(url)
+            console.log(this.cards.info)
+            if (!this.cards.info.next) this.$(".next").style.display = "none"
+            else this.$(".next").style.display = "block"
+            if (!this.cards.info.prev) this.$(".prev").style.display = "none"
+            else this.$(".prev").style.display = "block"
 
+            this.createCards()
+        }
+
+        async onInit() {
+            this.loadPageOfResults("https://rickandmortyapi.com/api/character")
+
+
+        }
+
+
+        async createCards() {
+            this.$("#cont").innerHTML = ""
+            for (let item of this.cards.results) {
+                let newCompo1 = app.createComponent("<app-componente1 item='" + escape(JSON.stringify(item)) + "'/>")
+                this.$("#cont").appendChild(newCompo1)
+            }
         }
         handleClick(e) {
-            let newCompo1 = (new DOMParser()).parseFromString("<app-componente1 />", "text/html").querySelector("app-componente1")
+            let newCompo1 = app.createComponent("<app-componente1  item='" + escape(JSON.stringify({})) + "'/>")
             this.$("#cont").appendChild(newCompo1)
         }
-        connectedCallback() {
 
-        }
 
     }
     customElements.define("app-componente2", Componente2)
