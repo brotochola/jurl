@@ -46,7 +46,14 @@ class Component extends HTMLElement {
     return obj.componentReference;
   }
   setRootElement() {
-    this.root = this.$(this.constructor.name.toLowerCase());
+    let constructorsNameElement = this.$(this.constructor.name.toLowerCase());
+
+    this.root = constructorsNameElement;
+    if (!this.root) {
+      this.root = this.$(":host >*:not(style)");
+    }
+
+    // if (!this.root) debugger;
   }
   updateParsedAttributes() {
     this.parsedAttributes = {};
@@ -61,11 +68,13 @@ class Component extends HTMLElement {
         try {
           this.parsedAttributes[k.name] =
             this.getParentComponent().getAttribute(val);
+          // this.getParentComponent()[val];
         } catch (e) {
           // console.warn(e);
         }
       } else if (k.value.startsWith("%") && decodeAttr(k.value)) {
         this.parsedAttributes[k.name] = decodeAttr(k.value);
+      } else if (k.name == "style") {
       } else {
         this.parsedAttributes[k.name] = k.value;
         // this.root.setAttribute(k.name, k.value);
@@ -87,6 +96,7 @@ class Component extends HTMLElement {
     if (this.onChange instanceof Function) {
       this.onChange(this.parsedAttributes);
     }
+    //AND THIS KEEPS GOING ALL THE WAY DOWN THE TREE
     for (let c of this.getAllChildrenComponents()) {
       if (c.update instanceof Function) c.update();
     }

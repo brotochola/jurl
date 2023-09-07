@@ -8,7 +8,6 @@
         let app
         async function start() {
             app = new App(document.querySelector("app"))
-            // await app.load("componente3.html")
             await app.loadComponent("componente2.html")
             await app.loadComponent("componente1.html")
             await app.loadComponent("tooltip.html")

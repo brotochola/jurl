@@ -24,9 +24,11 @@
 
 <componente1>
     <p class="title">compo 1</p>
-    <app-image-compo src="{{imgurl}}" />
+    <p class="dynamicText"></p>
     <button>change color</button>
-    <app-tooltip tooltip-color="{{inherited-color}}" />
+    <app-tooltip tooltip-color="{{inherited-color}}"></app-tooltip>
+    <app-image-compo src="{{imgurl}}"></app-image-compo>
+
 
 </componente1>
 
@@ -46,22 +48,16 @@
             this.$(".title").innerHTML = ((this.parsedAttributes || {}).item || {}).name
 
 
-
-        }
-        onInit() {
-            // console.log("compo 1 on init", this.uid)
-
-
-            // this.$("componente1").appendChild(app.createComponent("<app-tooltip color='{{color}}' />", "text/html"))
-            // this.$("componente1").appendChild(app.createComponent("<app-tooltip  />", "text/html"))
-
             window.debugC1 = this
+
         }
+
         onClickButton(e) {
             this.setAttribute("color", randomColor())
         }
 
         onChange(e) {
+            this.$(".dynamicText").innerHTML = this.parsedAttributes.text
             // this.setAttribute("inherited-color", this.parsedAttributes["color-of-tooltip"])
             // console.log("componente 1 cambio", e)
             // console.log(this.parsedAttributes)

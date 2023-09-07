@@ -16,6 +16,7 @@
     <button class="changeValBut"> change value of varOfCompo2</button>
     <button class="next">next</button>
     <button class="prev">prev</button>
+    <input>
     <div id="cont">
         <!-- <app-componente1 color="red" randomvar="{{varofcompo2}}" onload="alert(1)"></app-componente1>
         <app-componente1 color="purple"></app-componente1>
@@ -35,6 +36,9 @@
             super()
             this.setAttribute("varofcompo2", "holissss")
 
+            this.$("input").onkeyup = e => this.handleInputOnChange(e)
+
+
 
             this.$(".boton1").onclick = e => this.handleClick(e)
             this.$(".changeValBut").onclick = e => {
@@ -52,9 +56,12 @@
                     this.loadPageOfResults(this.cards.info.prev)
                 }
             }
+            this.loadPageOfResults("https://rickandmortyapi.com/api/character")
 
-
-
+        }
+        handleInputOnChange(e) {
+            // console.log(e.target)
+            this.setAttribute("text", e.target.value)
         }
         async loadPageOfResults(url) {
             this.cards = await getDataFromAPI(url)
@@ -65,24 +72,21 @@
             else this.$(".prev").style.display = "block"
 
             this.createCards()
-        }
-
-        async onInit() {
-            this.loadPageOfResults("https://rickandmortyapi.com/api/character")
 
 
         }
+
 
 
         async createCards() {
             this.$("#cont").innerHTML = ""
             for (let item of this.cards.results) {
-                let newCompo1 = app.createComponent("<app-componente1 item='" + escape(JSON.stringify(item)) + "'/>")
+                let newCompo1 = app.createComponent("<app-componente1 text='{{text}}' item='" + escape(JSON.stringify(item)) + "'/>")
                 this.$("#cont").appendChild(newCompo1)
             }
         }
         handleClick(e) {
-            let newCompo1 = app.createComponent("<app-componente1  item='" + escape(JSON.stringify({})) + "'/>")
+            let newCompo1 = app.createComponent("<app-componente1 text='{{text}}' item='" + escape(JSON.stringify({})) + "'/>")
             this.$("#cont").appendChild(newCompo1)
         }
 
