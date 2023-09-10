@@ -2,7 +2,7 @@
     p {
         /* CSS VARIABLES ARE LINKED WITH ATTRIBUTES */
         color: var(--color);
-        font-size: 20px !important;
+        font-size: 20px;
         font-weight: bold;
     }
 
@@ -12,6 +12,10 @@
         width: 150px;
         height: 200px;
         border: 1px solid black;
+    }
+
+    .dynamicText {
+        font-size: 10px;
     }
 
     img {
@@ -50,14 +54,24 @@
 
             window.debugC1 = this
 
+
+
+        }
+
+        handleChangeOfText2(prevVal) {
+            // console.log(this.id, prevVal)
+            this.$(".dynamicText").innerHTML = this.parsedAttributes.text2
         }
 
         onClickButton(e) {
             this.setAttribute("color", randomColor())
         }
 
+
+
         onChange(e) {
-            this.$(".dynamicText").innerHTML = this.parsedAttributes.text
+            // console.log(this.uid, e)
+            if (e.text1) this.$(".dynamicText").innerHTML = this.parsedAttributes.text1
             // this.setAttribute("inherited-color", this.parsedAttributes["color-of-tooltip"])
             // console.log("componente 1 cambio", e)
             // console.log(this.parsedAttributes)

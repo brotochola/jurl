@@ -5,6 +5,7 @@ class Component extends HTMLElement {
 
     this.uid = Math.floor(Math.random() * 9999999999999999).toString(24);
 
+    this.useEffectListeners = [];
     const nameOfClassThatCalledThis = this.constructor.name.toLowerCase();
 
     this.attachShadow({ mode: "open" });
@@ -55,7 +56,11 @@ class Component extends HTMLElement {
 
     // if (!this.root) debugger;
   }
+
   updateParsedAttributes() {
+    this.prevParsedAttributes = JSON.parse(
+      JSON.stringify(this.parsedAttributes || {})
+    );
     this.parsedAttributes = {};
 
     this.observer.disconnect();
@@ -91,11 +96,47 @@ class Component extends HTMLElement {
     );
   }
 
+  checkWhatAttributesChanged() {
+    // USE EFFECT TRICK:
+
+    let ret = {};
+
+    let parsedAttrKeys = Object.keys(this.parsedAttributes);
+    let prevParsedAttrKeys = Object.keys(this.prevParsedAttributes);
+
+    // console.log(parsedAttrKeys, prevParsedAttrKeys);
+
+    for (let p of parsedAttrKeys) {
+      let current = this.parsedAttributes[p];
+      let prev = this.prevParsedAttributes[p];
+      if (JSON.stringify(current) != JSON.stringify(prev)) {
+        ret[p] = { prev, current };
+      }
+    }
+
+    //IN CASE SOME ATTRBIUTE IS NOT THERE ANY MORE, THIS IS THE WAY I TRACK IT
+    for (let p of prevParsedAttrKeys) {
+      //IF THE PROPERTY IS NOT PRESENT IN THE RET OBJECT
+      if (!ret[p]) {
+        //I CHECK IF THEY CHANGED
+        let current = this.parsedAttributes[p];
+        let prev = this.prevParsedAttributes[p];
+        if (JSON.stringify(current) != JSON.stringify(prev)) {
+          ret[p] = { prev, current };
+        }
+      }
+    }
+
+    return ret;
+  }
+
   update() {
     this.updateParsedAttributes();
     if (this.onChange instanceof Function) {
-      this.onChange(this.parsedAttributes);
+      let attrs = this.checkWhatAttributesChanged();
+      this.onChange(attrs);
     }
+
     //AND THIS KEEPS GOING ALL THE WAY DOWN THE TREE
     for (let c of this.getAllChildrenComponents()) {
       if (c.update instanceof Function) c.update();
@@ -146,9 +187,10 @@ class Component extends HTMLElement {
       (k) => k.getAttribute("uid") != this.getAttribute("uid")
     );
   }
-  attributeChangedCallback(attrName, oldVal, newVal) {
-    console.log("attr changed", this.uid, attrName, oldVal, newVal);
-  }
+
+  // attributeChangedCallback(attrName, oldVal, newVal) {
+  //   console.log("attr changed", this.uid, attrName, oldVal, newVal);
+  // }
 
   // getElementInDOM() {
   //   let elem = app.root.querySelector("*[uid='" + this.uid + "']");
