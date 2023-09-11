@@ -1,5 +1,7 @@
 <html>
 
+
+
 <head>
     <script src="utils.js"></script>
     <script src="component.js"></script>
@@ -8,10 +10,11 @@
         let app
         async function start() {
             app = new App(document.querySelector("app"))
-            await app.loadComponent("componente2.html")
-            await app.loadComponent("componente1.html")
-            await app.loadComponent("tooltip.html")
-            await app.loadComponent("image_compo.html")
+            await Promise.all([app.loadComponent("componente2.html"), app.loadComponent("componente1.html"),
+            app.loadComponent("tooltip.html"),
+            app.loadComponent("image_compo.html"), app.loadComponent("router.html")])
+
+
 
 
             app.init()
@@ -25,7 +28,12 @@
 
 <body onload="start()">
     <app>
-        <app-componente2 popo="1"></app-componente2>
+
+
+        <app-router></app-router>
+
+
+
 
 
     </app>

@@ -5,7 +5,7 @@ class Component extends HTMLElement {
 
     this.uid = Math.floor(Math.random() * 9999999999999999).toString(24);
 
-    this.useEffectListeners = [];
+    // this.useEffectListeners = [];
     const nameOfClassThatCalledThis = this.constructor.name.toLowerCase();
 
     this.attachShadow({ mode: "open" });
@@ -179,6 +179,7 @@ class Component extends HTMLElement {
       if (this.onInit instanceof Function) this.onInit();
     }, 1);
   }
+
   disconnectedCallback() {
     // console.log(this.constructor.name, this.uid, "died", this);
 
@@ -186,6 +187,8 @@ class Component extends HTMLElement {
     app.instanciatedComponents = app.instanciatedComponents.filter(
       (k) => k.getAttribute("uid") != this.getAttribute("uid")
     );
+
+    if (this.onDestroy instanceof Function) this.onDestroy();
   }
 
   // attributeChangedCallback(attrName, oldVal, newVal) {
@@ -200,7 +203,7 @@ class Component extends HTMLElement {
 
   $(sel) {
     let res = this.shadowRoot.querySelectorAll(sel);
-    if (res.length > 1) return res;
+    if (res.length > 1) return Array.from(res);
     if (res.length == 1) return res[0];
     return null;
   }

@@ -71,7 +71,7 @@
         }
         async loadPageOfResults(url) {
             this.cards = await getDataFromAPI(url)
-            console.log(this.cards.info)
+            // console.log(this.cards.info)
             if (!this.cards.info.next) this.$(".next").style.display = "none"
             else this.$(".next").style.display = "block"
             if (!this.cards.info.prev) this.$(".prev").style.display = "none"
@@ -87,12 +87,12 @@
         async createCards() {
             this.$("#cont").innerHTML = ""
             for (let item of this.cards.results) {
-                let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + escape(JSON.stringify(item)) + "'/>")
+                let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr(item) + "'/>")
                 this.$("#cont").appendChild(newCompo1)
             }
         }
         handleClick(e) {
-            let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + escape(JSON.stringify({})) + "'/>")
+            let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr({}) + "'/>")
             this.$("#cont").appendChild(newCompo1)
         }
 

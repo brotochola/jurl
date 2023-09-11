@@ -1,0 +1,33 @@
+<html>
+
+<body>
+    <div id="root"></div>
+
+    <script>
+        const routes = {
+            '/': 1111,
+            '/contact': 2222,
+            '/about': 3333
+        };
+
+        const rootDiv = document.getElementById('root');
+        rootDiv.innerHTML = routes[window.location.pathname];
+
+        const onNavigate = (pathname) => {
+            window.history.pushState(
+                {},
+                pathname,
+                window.location.origin + pathname
+            )
+            rootDiv.innerHTML = routes[pathname]
+        }
+
+        window.onpopstate = () => {
+            rootDiv.innerHTML = routes[window.location.pathname]
+        }
+
+    </script>
+
+</body>
+
+</html>

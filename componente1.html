@@ -34,6 +34,8 @@
     <app-image-compo src="{{imgurl}}"></app-image-compo>
 
 
+
+
 </componente1>
 
 
@@ -58,10 +60,10 @@
 
         }
 
-        handleChangeOfText2(prevVal) {
-            // console.log(this.id, prevVal)
-            this.$(".dynamicText").innerHTML = this.parsedAttributes.text2
-        }
+        // handleChangeOfText2(prevVal) {
+        //     // console.log(this.id, prevVal)
+        //     this.$(".dynamicText").innerHTML = this.parsedAttributes.text2
+        // }
 
         onClickButton(e) {
             this.setAttribute("color", randomColor())
@@ -78,6 +80,10 @@
             // this.setAttribute("color", this.parsedAttributes.randomvar)
             // if (this.parsedAttributes.randomvar) this.$("button").innerHTML = this.parsedAttributes.randomvar
 
+        }
+
+        onDestroy() {
+            // console.log("chau", this.uid)
         }
 
     }
