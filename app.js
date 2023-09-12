@@ -89,6 +89,15 @@ class App {
     return new DOMParser().parseFromString(txt, "text/html").body.children[0];
   }
 
+  async loadManyComponents(arr) {
+    let arrOfPromises = [];
+    for (let co of arr) {
+      arrOfPromises.push(this.loadComponent(co));
+    }
+    await Promise.all(arrOfPromises);
+    return 1;
+  }
+
   async loadComponent(html) {
     let req = await fetch(html + "?fd=" + Math.random() * 99999);
     let content = await req.text();

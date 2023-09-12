@@ -1,0 +1,55 @@
+<header style="height:50px">
+    <button onclick="app.navigate('/jurl/')">root </button>
+    <button onclick="app.navigate('/jurl/holi1')">holi1</button>
+    <button onclick="app.navigate('/jurl/holi2')">holi2</button>
+</header>
+
+
+<script>
+
+    class Header extends Component {
+        constructor() {
+            super();
+
+
+
+
+
+
+            // this.selectADivAndMakeItVisible()
+
+            // window.onpopstate = () => this.selectADivAndMakeItVisible();
+
+            // app.navigate = this.navigate
+            // this.navigate("/jurl/rick")
+        }
+
+        // hideAllElements() {
+        //     this.$(":host > *:not(style) > *").map(k => k.style.display = "none")
+
+        // }
+
+        // selectADivAndMakeItVisible() {
+        //     this.selectedElement = this.$("*[route='" + window.location.pathname + "']")
+        //     if (!this.selectedElement && window.location.pathname.endsWith("/")) {
+        //         this.selectedElement = this.$("*[route='" + window.location.pathname.substr(0, window.location.pathname.length - 1) + "']")
+        //     } else if (!this.selectedElement && !window.location.pathname.endsWith("/")) {
+        //         this.selectedElement = this.$("*[route='" + window.location.pathname + "/")
+        //     }
+
+
+
+        //     console.log("##### ", window.location.pathname, this.selectedElement)
+        //     this.hideAllElements()
+        //     if (this.selectedElement instanceof HTMLElement) this.selectedElement.style.display = "block"
+        // }
+
+        // navigate = (pathname) => {
+        //     window.history.pushState({}, pathname, window.location.origin + pathname);
+        //     this.selectADivAndMakeItVisible()
+        // };
+    }
+
+    customElements.define("app-header", Header);
+
+</script>

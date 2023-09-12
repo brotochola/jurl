@@ -10,9 +10,8 @@
         let app
         async function start() {
             app = new App(document.querySelector("app"))
-            await Promise.all([app.loadComponent("componente2.html"), app.loadComponent("componente1.html"),
-            app.loadComponent("tooltip.html"),
-            app.loadComponent("image_compo.html"), app.loadComponent("router.html")])
+
+            await app.loadManyComponents(["componente2.html", "componente1.html", "tooltip.html", "image_compo.html", "router.html", "header.html"])
 
 
 
@@ -28,7 +27,7 @@
 
 <body onload="start()">
     <app>
-
+        <app-header></app-header>
 
         <app-router></app-router>
 
