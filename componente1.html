@@ -23,14 +23,19 @@
         height: 100px;
         object-fit: cover;
     }
+
+    .small {
+        font-size: 9px;
+    }
 </style>
 
 
 <componente1>
-    <p class="title">compo 1</p>
+    <p class="title"></p>
     <p class="dynamicText"></p>
+    <p class="small">{{uid}}</p>
     <button>change color</button>
-    <app-tooltip tooltip-color="{{inherited-color}}"></app-tooltip>
+    <app-tooltip></app-tooltip>
     <app-image-compo src="{{imgurl}}"></app-image-compo>
 
 

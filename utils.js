@@ -9,7 +9,13 @@ const encodeAttr = (str) => {
   return escape(JSON.stringify(str));
 };
 const decodeAttr = (str) => {
-  return JSON.parse(unescape(str));
+  let ret;
+  try {
+    ret = JSON.parse(unescape(str));
+  } catch (e) {
+    ret = null;
+  }
+  return ret;
 };
 
 async function getDataFromAPI(url) {
@@ -17,4 +23,8 @@ async function getDataFromAPI(url) {
   let data = await (await fetch(url)).json();
 
   return data;
+}
+
+function getAttributesStartingWithJ(el) {
+  return Array.from(el.attributes).filter((k) => k.name.startsWith("j-"));
 }

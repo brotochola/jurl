@@ -15,19 +15,20 @@
         components as needed. Each of these card component has an image component and a circle component. The card
         component takes the url attribute and passes it to tthe image component, which renders it. On the other hand,
         the main component sets an own color css variable, which is used by the circle component to change its color.
+
+        By the way, {{dynamicText}}
     </p>
     <button class="boton1"> add</button>
+    <button class="boton12" j-onclick="handleClickDebug" j-onmouseover="handleonMouseOverDebug"> this button has a
+        j-onclick attr</button>
+
     <button class="changeValBut"> set random color to css variable</button>
     <button class="next">next</button>
     <button class="prev">prev</button>
     <input class="input1">
     <input class="input2">
     <div id="cont">
-        <!-- <app-componente1 color="red" randomvar="{{varofcompo2}}" onload="alert(1)"></app-componente1>
-        <app-componente1 color="purple"></app-componente1>
-        <app-componente1></app-componente1>
-        <app-componente1></app-componente1>
-        <app-componente1></app-componente1> -->
+
     </div>
 </componente2>
 
@@ -39,6 +40,7 @@
         constructor() {
 
             super()
+            this.setAttribute("dynamicText", "this text is being generated dynamically, with data binding")
             this.setAttribute("varofcompo2", "holissss")
 
             this.$("input.input1").onkeyup = e => this.handleInputOnChange(e, 1)
@@ -65,6 +67,8 @@
             this.loadPageOfResults("https://rickandmortyapi.com/api/character")
 
         }
+
+
         handleInputOnChange(e, which) {
             // console.log(e.target)
             this.setAttribute("text" + which, e.target.value)
@@ -94,6 +98,14 @@
         handleClick(e) {
             let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr({}) + "'/>")
             this.$("#cont").appendChild(newCompo1)
+        }
+        handleClickDebug(e) {
+            console.log("on click j-event")
+            // console.log("$$$$ handle click debug", this, e, e.target, e.currentTarget)
+        }
+        handleonMouseOverDebug(e) {
+            console.log("on mouse over j-event")
+            // console.log("$$$$ mouse over debug", this, e, e.target)
         }
 
 

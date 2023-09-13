@@ -9,7 +9,14 @@
   <div route="/jurl/holi2"> 222 2 22 22 3 3 3 3 3</div>
 
 </router>
+
+
+
+
 <script>
+
+
+
 
   class Router extends Component {
     constructor() {
@@ -43,7 +50,7 @@
 
 
 
-      console.log("##### ", window.location.pathname, this.selectedElement)
+      // console.log("##### ", window.location.pathname, this.selectedElement)
       this.hideAllElements()
       if (this.selectedElement instanceof HTMLElement) this.selectedElement.style.display = "block"
     }

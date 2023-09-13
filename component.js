@@ -21,19 +21,45 @@ class Component extends HTMLElement {
     app.instanciatedComponents.push(this);
     this.setRootElement();
     this.initObsrever();
+
     this.updateParsedAttributes();
     // console.log(Array.from(this.attributes));
   }
+  linkJEventsWithMethods() {
+    this.root.querySelectorAll(":host *").forEach((el) => {
+      let jAttrs = getAttributesStartingWithJ(el);
+      for (let jAttr of jAttrs) {
+        //this is the method's name in the class
+        let methodInClass = jAttr.value;
+        let nameOfEventListener = jAttr.name.substr(2, 999);
+        el[nameOfEventListener] = this[methodInClass].bind(this);
+      }
+    });
+  }
+
+  setState(varName, val) {
+    if (val instanceof Object) val = encodeAttr(val);
+    this.setAttribute(varName, val);
+  }
+  getState(varName) {
+    return this.parsedAttributes[varName];
+  }
+
   setCSSVariable(varName, val) {
+    if (val instanceof Object) val = encodeAttr(val);
     this.style.setProperty("--" + varName, val);
   }
   getCSSVariable(varName) {
     let elem = this;
+
     while (elem && !elem.style.getPropertyValue("--" + varName)) {
       elem = elem.getParentComponent();
     }
     if (elem && elem.style.getPropertyValue("--" + varName)) {
-      return elem.style.getPropertyValue("--" + varName);
+      let value = elem.style.getPropertyValue("--" + varName);
+      let decoded = decodeAttr(value);
+      if (decoded) return decoded;
+      return value;
     }
 
     return null;
@@ -66,6 +92,7 @@ class Component extends HTMLElement {
     this.observer.disconnect();
 
     Array.from(this.attributes).map((k) => {
+      let decodedAttr = decodeAttr(k.value);
       if (k.value.endsWith("}}") && k.value.startsWith("{{")) {
         //CURLY BRACKETS VARIABLES
         let val = k.value.substr(2, k.value.length - 4);
@@ -76,17 +103,20 @@ class Component extends HTMLElement {
           // this.getParentComponent()[val];
         } catch (e) {
           // console.warn(e);
+          this.parsedAttributes[k.name] = undefined;
         }
-      } else if (k.value.startsWith("%") && decodeAttr(k.value)) {
-        this.parsedAttributes[k.name] = decodeAttr(k.value);
+      } else if (k.value.startsWith("%") && decodedAttr) {
+        this.parsedAttributes[k.name] = decodedAttr;
       } else if (k.name == "style") {
+        //DO NOTHING IF IT'S A STYLE ATTR
       } else {
         this.parsedAttributes[k.name] = k.value;
         // this.root.setAttribute(k.name, k.value);
-        this.style.setProperty("--" + k.name, k.value);
+        // this.style.setProperty("--" + k.name, k.value);
       }
     });
 
+    this.linkJEventsWithMethods();
     this.observer.observe(this, this.observerConfig);
   }
 
@@ -171,11 +201,44 @@ class Component extends HTMLElement {
     // Later, you can stop observing
     // observer.disconnect();
   }
+
+  replaceCurlyBracketsWithContent() {
+    let elementsWithNoChildrenAndCurlyBracketsContent = Array.from(
+      this.root.querySelectorAll(":host *:not(style)")
+    ).filter(
+      (el) => el.childElementCount == 0 && el.innerText.indexOf("{{") > -1
+    );
+    if (elementsWithNoChildrenAndCurlyBracketsContent.length == 0) return;
+    for (let el of elementsWithNoChildrenAndCurlyBracketsContent) {
+      let whereAreTheCurlyBrStarting = el.innerText.indexOf("{{");
+      let whereAreTheCurlyBrEnding = el.innerText.indexOf("}}");
+      let varInsideCurlyBr = el.innerText.substr(
+        whereAreTheCurlyBrStarting + 2,
+        whereAreTheCurlyBrEnding - whereAreTheCurlyBrStarting - 2
+      );
+      let value = this.parsedAttributes[varInsideCurlyBr.toLowerCase()];
+
+      // console.log(
+      //   "!!!!!!!",
+      //   el.innerText,
+      //   whereAreTheCurlyBrStarting,
+      //   whereAreTheCurlyBrEnding,
+      //   varInsideCurlyBr,
+      //   value
+      // );
+      el.innerText = el.innerText.replace(
+        "{{" + varInsideCurlyBr + "}}",
+        value
+      );
+    }
+  }
+
   connectedCallback() {
     // console.log(this.constructor.name, this.uid, "appeared");
 
     setTimeout(() => {
       this.updateParsedAttributes();
+      this.replaceCurlyBracketsWithContent();
       if (this.onInit instanceof Function) this.onInit();
     }, 1);
   }
