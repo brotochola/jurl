@@ -6,12 +6,13 @@
     <script src="lib/utils.js"></script>
     <script src="lib/component.js"></script>
     <script src="lib/app.js"></script>
+    <script src="lib/routerComponent.js"></script>
     <script>
         let app
         async function start() {
             app = new App(document.querySelector("app"))
 
-            await app.loadManyComponents(["componente2.html", "componente1.html", "tooltip.html", "image_compo.html", "router.html", "header.html"])
+            await app.loadManyComponents(["componente2.html", "components/card.html", "tooltip.html", "image_compo.html", "router.html", "header.html"])
 
 
 
