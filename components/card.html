@@ -1,6 +1,6 @@
 <style>
     p {
-        /* CSS VARIABLES ARE LINKED WITH ATTRIBUTES */
+
         color: var(--color);
         font-size: 20px;
         font-weight: bold;
@@ -10,7 +10,7 @@
         position: relative;
         display: inline-block;
         width: 150px;
-        height: 200px;
+        height: max-content;
         border: 1px solid black;
     }
 
@@ -31,8 +31,9 @@
 
 
 <componente1>
-    <p class="title"></p>
+    <p class="title colorChange"></p>
     <p class="dynamicText"></p>
+    <button j-onclick="handleOnClickHide">hide</button>
     <p class="small">{{uid}}</p>
     <button>change color</button>
     <app-tooltip></app-tooltip>
@@ -46,17 +47,17 @@
 
 
 <script>
-    class Componente1 extends Component {
+    class Card extends Component {
         constructor() {
             super()
             this.$("button").onclick = e => this.onClickButton(e)
 
-            if (this.parsedAttributes.item) {
-                this.setState("imgurl", (this.parsedAttributes.item || {}).image)
-                // this.$("app-image-compo").setAttribute("src", (this.parsedAttributes.item || {}).image)
+            if (this.state.item) {
+                this.setState("imgurl", (this.state.item || {}).image)
+
             }
 
-            this.$(".title").innerHTML = ((this.parsedAttributes || {}).item || {}).name
+            this.$(".title").innerHTML = ((this.state || {}).item || {}).name
 
 
             window.debugC1 = this
@@ -64,11 +65,11 @@
 
 
         }
+        handleOnClickHide(e) {
+            this.disable()
+        }
 
-        // handleChangeOfText2(prevVal) {
-        //     // console.log(this.id, prevVal)
-        //     this.$(".dynamicText").innerHTML = this.parsedAttributes.text2
-        // }
+
 
         onClickButton(e) {
             this.setState("color", randomColor())
@@ -77,13 +78,11 @@
 
 
         onChange(e) {
-            // console.log(this.uid, e)
-            if (e.text1) this.$(".dynamicText").innerHTML = this.parsedAttributes.text1
-            // this.setAttribute("inherited-color", this.parsedAttributes["color-of-tooltip"])
-            // console.log("componente 1 cambio", e)
-            // console.log(this.parsedAttributes)
-            // this.setAttribute("color", this.parsedAttributes.randomvar)
-            // if (this.parsedAttributes.randomvar) this.$("button").innerHTML = this.parsedAttributes.randomvar
+            console.log(this.uid, e)
+
+            if (e.text1) this.$(".dynamicText").innerHTML = this.state.text1
+            if (e.color) this.$(".colorChange").style.color = this.state.color
+
 
         }
 
@@ -92,6 +91,6 @@
         }
 
     }
-    // customElements.define("app-componente1", Componente1)
-    app.defineComponentsName(Componente1)
+
+    app.defineComponentsName(Card, "app-card")
 </script>

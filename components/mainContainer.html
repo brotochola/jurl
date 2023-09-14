@@ -8,6 +8,10 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    /* #cont *[enabled="false"] {
+        display: none;
+    } */
 </style>
 
 <span>
@@ -26,6 +30,8 @@
     <button class="next" j-onclick="onClickNext">next</button>
     <button class="prev" j-onclick="onClickPrev">prev</button>
     <input class="input1" j-onkeyup="handleInputOnChange">
+
+    <button j-onclick="handleShowAll">show all</button>
     <!-- <input class="input2"> -->
     <div id="cont">
 
@@ -35,7 +41,7 @@
 
 
 <script>
-    class Componente2 extends Component {
+    class MainContainer extends Component {
 
         constructor() {
 
@@ -45,6 +51,11 @@
 
             this.loadPageOfResults("https://rickandmortyapi.com/api/character")
 
+        }
+        handleShowAll(e) {
+            for (let c of this.getAllChildrenComponents()) {
+                c.enable()
+            }
         }
         onClickPrev(e) {
             if (this.cards) {
@@ -87,13 +98,13 @@
             this.$("#cont").innerHTML = ""
             for (let item of this.cards.results) {
                 // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr(item) + "'/>")
-                let newCompo1 = Componente1.create({ text1: "{{text1}}", text2: "{{text2}}", item: item })
+                let newCompo1 = Card.create({ text1: "{{text1}}", text2: "{{text2}}", item: item })
 
                 this.$("#cont").appendChild(newCompo1)
             }
         }
         handleClick(e) {
-            let newCompo1 = Componente1.create({ text: "{{text1}}", text2: "{{text2}}", item: {} })
+            let newCompo1 = Card.create({ text: "{{text1}}", text2: "{{text2}}", item: {} })
             // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr({}) + "'/>")
             this.$("#cont").appendChild(newCompo1)
         }
@@ -108,6 +119,6 @@
 
 
     }
-    // customElements.define("app-componente2", Componente2)
-    app.defineComponentsName(Componente2)
+
+    app.defineComponentsName(MainContainer, "app-main-container")
 </script>

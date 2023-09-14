@@ -1,0 +1,38 @@
+<style>
+    img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+
+    }
+</style>
+
+
+<img>
+
+
+
+<script>
+    class Image_compo extends Component {
+        constructor() {
+            super()
+
+
+
+        }
+        onInit() {
+
+            // console.log(this.state.src)
+            this.$("img").src = this.state.src
+
+        }
+
+        onChange(e) {
+
+
+        }
+
+    }
+    // customElements.define("app-image-compo", Image_compo)
+    app.defineComponentsName(Image_compo)
+</script>
