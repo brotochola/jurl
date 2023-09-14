@@ -2,11 +2,11 @@
 
 <router>
 
-  <div route="/jurl/holi1"> ruta 1 holi</div>
+  <app-componente1 route="/holi1"> </app-componente1>
 
 
-  <app-componente2 route="/jurl"></app-componente2>
-  <div route="/jurl/holi2"> 222 2 22 22 3 3 3 3 3</div>
+  <app-componente2 route="/"></app-componente2>
+  <app-componente1 route="/holi2"> 222 2 22 22 3 3 3 3 3</app-componente1>
 
 </router>
 
@@ -36,7 +36,8 @@
     }
 
     hideAllElements() {
-      this.$(":host > *:not(style) > *").map(k => k.style.display = "none")
+      // this.$(":host > *:not(style) > *").map(k => k.style.display = "none")
+      this.$(":host > *:not(style) > *").map(k => k.disable())
 
     }
 
@@ -52,7 +53,7 @@
 
       // console.log("##### ", window.location.pathname, this.selectedElement)
       this.hideAllElements()
-      if (this.selectedElement instanceof HTMLElement) this.selectedElement.style.display = "block"
+      if (this.selectedElement instanceof Component) this.selectedElement.enable()
     }
 
     navigate = (pathname) => {
@@ -61,6 +62,7 @@
     };
   }
 
-  customElements.define("app-router", Router);
+  // customElements.define("app-router", Router);
+  app.defineComponentsName(Router)
 
 </script>

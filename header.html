@@ -1,7 +1,7 @@
 <header style="height:50px">
-    <button onclick="app.navigate('/jurl/')">root </button>
-    <button onclick="app.navigate('/jurl/holi1')">holi1</button>
-    <button onclick="app.navigate('/jurl/holi2')">holi2</button>
+    <button onclick="app.navigate('/')">root </button>
+    <button onclick="app.navigate('/holi1')">holi1</button>
+    <button onclick="app.navigate('/holi2')">holi2</button>
 </header>
 
 
@@ -50,6 +50,6 @@
         // };
     }
 
-    customElements.define("app-header", Header);
-
+    // customElements.define("app-header", Header);
+    app.defineComponentsName(Header)
 </script>

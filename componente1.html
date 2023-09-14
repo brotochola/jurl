@@ -52,7 +52,7 @@
             this.$("button").onclick = e => this.onClickButton(e)
 
             if (this.parsedAttributes.item) {
-                this.setAttribute("imgurl", (this.parsedAttributes.item || {}).image)
+                this.setState("imgurl", (this.parsedAttributes.item || {}).image)
                 // this.$("app-image-compo").setAttribute("src", (this.parsedAttributes.item || {}).image)
             }
 
@@ -71,7 +71,7 @@
         // }
 
         onClickButton(e) {
-            this.setAttribute("color", randomColor())
+            this.setState("color", randomColor())
         }
 
 
@@ -92,5 +92,6 @@
         }
 
     }
-    customElements.define("app-componente1", Componente1)
+    // customElements.define("app-componente1", Componente1)
+    app.defineComponentsName(Componente1)
 </script>

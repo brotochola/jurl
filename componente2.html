@@ -10,7 +10,7 @@
     }
 </style>
 
-<componente2>
+<span>
     <p>This is the main component, which loads data from an external API, and generates dynamically as many Card
         components as needed. Each of these card component has an image component and a circle component. The card
         component takes the url attribute and passes it to tthe image component, which renders it. On the other hand,
@@ -18,19 +18,19 @@
 
         By the way, {{dynamicText}}
     </p>
-    <button class="boton1"> add</button>
+    <button class="boton1" j-onclick="handleClick"> add</button>
     <button class="boton12" j-onclick="handleClickDebug" j-onmouseover="handleonMouseOverDebug"> this button has a
         j-onclick attr</button>
 
-    <button class="changeValBut"> set random color to css variable</button>
-    <button class="next">next</button>
-    <button class="prev">prev</button>
-    <input class="input1">
-    <input class="input2">
+    <button class="changeValBut" j-onclick="handleSetRandomColor"> set random color to css variable</button>
+    <button class="next" j-onclick="onClickNext">next</button>
+    <button class="prev" j-onclick="onClickPrev">prev</button>
+    <input class="input1" j-onkeyup="handleInputOnChange">
+    <!-- <input class="input2"> -->
     <div id="cont">
 
     </div>
-</componente2>
+</span>
 
 
 
@@ -40,38 +40,33 @@
         constructor() {
 
             super()
-            this.setAttribute("dynamicText", "this text is being generated dynamically, with data binding")
-            this.setAttribute("varofcompo2", "holissss")
+            this.setState("dynamicText", "this text is being generated dynamically, with data binding")
+            this.setState("varofcompo2", "holissss")
 
-            this.$("input.input1").onkeyup = e => this.handleInputOnChange(e, 1)
-            this.$("input.input2").onkeyup = e => this.handleInputOnChange(e, 2)
-
-
-
-            this.$(".boton1").onclick = e => this.handleClick(e)
-            this.$(".changeValBut").onclick = e => {
-                this.setCSSVariable("color-of-tooltip", randomColor())
-            }
-
-            this.$(".next").onclick = e => {
-                if (this.cards) {
-                    this.loadPageOfResults(this.cards.info.next)
-                }
-            }
-
-            this.$(".prev").onclick = e => {
-                if (this.cards) {
-                    this.loadPageOfResults(this.cards.info.prev)
-                }
-            }
             this.loadPageOfResults("https://rickandmortyapi.com/api/character")
+
+        }
+        onClickPrev(e) {
+            if (this.cards) {
+                this.loadPageOfResults(this.cards.info.prev)
+            }
+        }
+        onClickNext(e) {
+            if (this.cards) {
+                this.loadPageOfResults(this.cards.info.next)
+            }
+        }
+
+        handleSetRandomColor(e) {
+
+            this.setCSSVariable("color-of-tooltip", randomColor())
 
         }
 
 
-        handleInputOnChange(e, which) {
+        handleInputOnChange(e) {
             // console.log(e.target)
-            this.setAttribute("text" + which, e.target.value)
+            this.setState("text1", e.target.value)
         }
         async loadPageOfResults(url) {
             this.cards = await getDataFromAPI(url)
@@ -91,12 +86,15 @@
         async createCards() {
             this.$("#cont").innerHTML = ""
             for (let item of this.cards.results) {
-                let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr(item) + "'/>")
+                // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr(item) + "'/>")
+                let newCompo1 = Componente1.create({ text1: "{{text1}}", text2: "{{text2}}", item: item })
+
                 this.$("#cont").appendChild(newCompo1)
             }
         }
         handleClick(e) {
-            let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr({}) + "'/>")
+            let newCompo1 = Componente1.create({ text: "{{text1}}", text2: "{{text2}}", item: {} })
+            // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr({}) + "'/>")
             this.$("#cont").appendChild(newCompo1)
         }
         handleClickDebug(e) {
@@ -110,5 +108,6 @@
 
 
     }
-    customElements.define("app-componente2", Componente2)
+    // customElements.define("app-componente2", Componente2)
+    app.defineComponentsName(Componente2)
 </script>
