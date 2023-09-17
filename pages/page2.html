@@ -1,0 +1,44 @@
+<style>
+
+</style>
+
+<span>
+    <h1>page 2</h1>
+    <j-if condition="{{showHiddenText()}}">
+        <p>hidden text</p>
+    </j-if>
+
+    <button j-onclick="handleOnClickButton">change name</button>
+
+</span>
+
+
+
+<script>
+    class Page2 extends Component {
+
+
+
+
+        showHiddenText() {
+
+            let name = this.getAttribute("name")
+            return name == "juan"
+        }
+
+        onInit() {
+            this.setState("name", "pedro")
+            window.page2 = this
+        }
+
+        handleOnClickButton(e) {
+            this.setState("name", "juan")
+        }
+        onChange(e) {
+            // console.log(e)
+        }
+
+    }
+
+    app.defineComponentsName(Page2, "app-page2")
+</script>

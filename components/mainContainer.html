@@ -46,10 +46,12 @@
         constructor() {
 
             super()
+
             this.setState("dynamicText", "this text is being generated dynamically, with data binding")
             this.setState("varofcompo2", "holissss")
 
             this.loadPageOfResults("https://rickandmortyapi.com/api/character")
+            window.mainC = this
 
         }
         handleShowAll(e) {
@@ -82,12 +84,7 @@
         async loadPageOfResults(url) {
             this.cards = await getDataFromAPI(url)
             // console.log(this.cards.info)
-            if (!this.cards.info.next) this.$(".next").style.display = "none"
-            else this.$(".next").style.display = "block"
-            if (!this.cards.info.prev) this.$(".prev").style.display = "none"
-            else this.$(".prev").style.display = "block"
 
-            this.createCards()
 
 
         }
@@ -115,6 +112,18 @@
         handleonMouseOverDebug(e) {
             console.log("on mouse over j-event")
             // console.log("$$$$ mouse over debug", this, e, e.target)
+        }
+
+        onChange(e) {
+
+
+            if (!(e.enabled || {}).current) return
+            if (!this.cards.info.next) this.$(".next").style.display = "none"
+            else this.$(".next").style.display = "block"
+            if (!this.cards.info.prev) this.$(".prev").style.display = "none"
+            else this.$(".prev").style.display = "block"
+
+            this.createCards()
         }
 
 

@@ -3,16 +3,19 @@
 
 
 <head>
+    <script src="lib/ifTag.js"></script>
+
     <script src="lib/utils.js"></script>
     <script src="lib/component.js"></script>
     <script src="lib/app.js"></script>
     <script src="lib/routerComponent.js"></script>
+
     <script>
         let app
         async function start() {
             app = new App(document.querySelector("app"))
 
-            await app.loadManyComponents(["components/mainContainer.html", "components/card.html", "components/tooltip.html", "components/image_compo.html", "components/router.html", "components/header.html"])
+            await app.loadManyComponents(["components/mainContainer.html", "components/card.html", "components/tooltip.html", "components/image_compo.html", "components/router.html", "components/header.html", "pages/page2.html"])
 
 
 
