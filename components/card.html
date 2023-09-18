@@ -51,16 +51,12 @@
 
         onInit() {
             // console.log("#on init", this.uid, this.getState("cards"), this.getState("i"))
-            if (this.getState("i") && this.getState("cards")) {
 
-                this.item = this.getState("cards").results[this.getState("i")]
-                // console.log("#init", item.image)
-
-                this.setState("imgurl", this.item.image)
+            this.item = this.getState("cards").results[this.getState("i")]
+            this.$(".title").innerHTML = this.item.name
 
 
-            }
-
+            this.setState("imgurl", this.item.image)
 
 
 
@@ -84,8 +80,11 @@
             if (e.color) this.$(".colorChange").style.color = this.state.color
 
             this.item = this.getState("cards").results[this.getState("i")]
-
             this.$(".title").innerHTML = this.item.name
+
+
+            this.setState("imgurl", this.item.image)
+
 
         }
 
