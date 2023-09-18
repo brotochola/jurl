@@ -35,7 +35,7 @@
     <p class="dynamicText"></p>
     <button j-onclick="handleOnClickHide">hide</button>
     <p class="small">{{uid}}</p>
-    <button>change color</button>
+    <button j-onclick="onClickButton">change color</button>
     <app-tooltip></app-tooltip>
     <app-image-compo src="{{imgurl}}"></app-image-compo>
 
@@ -48,19 +48,19 @@
 
 <script>
     class Card extends Component {
-        constructor() {
-            super()
-            this.$("button").onclick = e => this.onClickButton(e)
 
-            if (this.state.item) {
-                this.setState("imgurl", (this.state.item || {}).image)
+        onInit() {
+            // console.log("#on init", this.uid, this.getState("cards"), this.getState("i"))
+            if (this.getState("i") && this.getState("cards")) {
+
+                this.item = this.getState("cards").results[this.getState("i")]
+                // console.log("#init", item.image)
+
+                this.setState("imgurl", this.item.image)
+
 
             }
 
-            this.$(".title").innerHTML = ((this.state || {}).item || {}).name
-
-
-            window.debugC1 = this
 
 
 
@@ -83,6 +83,9 @@
             if (e.text1) this.$(".dynamicText").innerHTML = this.state.text1
             if (e.color) this.$(".colorChange").style.color = this.state.color
 
+            this.item = this.getState("cards").results[this.getState("i")]
+
+            this.$(".title").innerHTML = this.item.name
 
         }
 
