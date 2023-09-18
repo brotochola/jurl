@@ -20,7 +20,8 @@
         component takes the url attribute and passes it to tthe image component, which renders it. On the other hand,
         the main component sets an own color css variable, which is used by the circle component to change its color.
 
-        By the way, {{dynamicText}}
+        By the way,
+        <span j-innerHTML="dynamicText"></span>
     </p>
     <button class="boton1" j-onclick="handleClick"> add</button>
     <button class="boton12" j-onclick="handleClickDebug" j-onmouseover="handleonMouseOverDebug"> this button has a
@@ -43,16 +44,13 @@
 <script>
     class MainContainer extends Component {
 
-        constructor() {
 
-            super()
-
+        onInit() {
             this.setState("dynamicText", "this text is being generated dynamically, with data binding")
             this.setState("varofcompo2", "holissss")
 
             this.loadPageOfResults("https://rickandmortyapi.com/api/character")
             window.mainC = this
-
         }
         handleShowAll(e) {
             for (let c of this.getAllChildrenComponents()) {
@@ -134,7 +132,7 @@
 
         onChange(e) {
 
-            console.log("#ON CHANGE", e)
+            console.log("#ON CHANGE", e, this.isEnabled())
             // debugger
             if (!this.isEnabled()) return
             if (!((this.getState("cards") || {}).info || {}).next) this.$(".next").style.display = "none"

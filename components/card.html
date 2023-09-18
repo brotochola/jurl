@@ -31,10 +31,10 @@
 
 
 <componente1>
-    <p class="title colorChange"></p>
-    <p class="dynamicText"></p>
+    <p class="title colorChange" j-innerHTML="title"></p>
+    <p class="dynamicText" J-innerHTML="text1"></p>
     <button j-onclick="handleOnClickHide">hide</button>
-    <p class="small">{{uid}}</p>
+    <p class="small" j-innerHTML="uid"></p>
     <button j-onclick="onClickButton">change color</button>
     <app-tooltip></app-tooltip>
     <app-image-compo src="{{imgurl}}"></app-image-compo>
@@ -52,11 +52,15 @@
         onInit() {
             // console.log("#on init", this.uid, this.getState("cards"), this.getState("i"))
 
-            this.item = this.getState("cards").results[this.getState("i")]
-            this.$(".title").innerHTML = this.item.name
+            this.item = ((this.getState("cards") || {}).results || [])[this.getState("i")]
+            // this.$(".title").innerHTML = this.item.name
+
+            if (this.item) {
+                this.setState("title", this.item.name)
+                this.setState("imgurl", this.item.image)
+            }
 
 
-            this.setState("imgurl", this.item.image)
 
 
 
@@ -68,7 +72,7 @@
 
 
         onClickButton(e) {
-            this.setState("color", randomColor())
+            this.setCSSVariable("color", randomColor())
         }
 
 
@@ -76,14 +80,10 @@
         onChange(e) {
             // console.log(this.uid, e)
 
-            if (e.text1) this.$(".dynamicText").innerHTML = this.state.text1
-            if (e.color) this.$(".colorChange").style.color = this.state.color
+            // if (e.text1) this.$(".dynamicText").innerHTML = this.state.text1
+            // if (e.color) this.$(".colorChange").style.color = this.state.color
 
-            this.item = this.getState("cards").results[this.getState("i")]
-            this.$(".title").innerHTML = this.item.name
-
-
-            this.setState("imgurl", this.item.image)
+            this.onInit()
 
 
         }

@@ -4,9 +4,15 @@
 
 <span>
     <h1>page 2</h1>
-    <j-if condition="{{showHiddenText()}}">
+    <j-if condition="showHiddenText()">
         <p>hidden text</p>
     </j-if>
+
+
+    <j-if condition="showHidden2">
+        <p>hidden text 2</p>
+    </j-if>
+
 
     <button j-onclick="handleOnClickButton">change name</button>
 
@@ -33,6 +39,7 @@
 
         handleOnClickButton(e) {
             this.setState("name", "juan")
+            this.setState("showHidden2", true)
         }
         onChange(e) {
             console.log("page 2 on change", e)
