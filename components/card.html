@@ -52,7 +52,7 @@
         onInit() {
             // console.log("#on init", this.uid, this.getState("cards"), this.getState("i"))
 
-            this.item = ((this.getState("cards") || {}).results || [])[this.getState("i")]
+            this.item = (this.getState("cards") || [])[this.getState("i")]
             // this.$(".title").innerHTML = this.item.name
 
             if (this.item) {

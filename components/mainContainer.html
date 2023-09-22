@@ -35,11 +35,13 @@
     <button j-onclick="handleShowAll">show all</button>
     <!-- <input class="input2"> -->
 
-    <j-for arr="{{cards.results}}">
-        <app-card cards="{{arr}}" text1="{{text1}}"></app-card>
-    </j-for>
+
 
     <div id="cont">
+
+        <j-for arr="{{cards.results}}" text1="{{text1}}">
+            <app-card cards="{{arr}}" text1="{{text1}}"></app-card>
+        </j-for>
 
     </div>
 
@@ -110,16 +112,16 @@
             console.log("CREATE CARDS")
 
 
-            // if (this.getAllChildrenComponents().length > 0) {
-            //     this.update()
-            //     return
-            // }
+            if ((this.$("#cont app-card") || []).length > 0) {
+                this.update()
+                return
+            }
 
             this.$("#cont").innerHTML = ""
             for (let i = 0; i < ((this.getState("cards") || {}).results || []).length; i++) {
 
                 // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr(item) + "'/>")
-                let newCompo1 = Card.create({ text1: "{{text1}}", text2: "{{text2}}", i: i, cards: "{{cards}}" })
+                let newCompo1 = Card.create({ text1: "{{text1}}", text2: "{{text2}}", i: i, cards: "{{cards.results}}" })
 
                 this.$("#cont").appendChild(newCompo1)
             }
@@ -128,9 +130,12 @@
         }
 
         handleClick(e) {
-            let newCompo1 = Card.create({ text: "{{text1}}", text2: "{{text2}}", item: {} })
-            // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr({}) + "'/>")
-            this.$("#cont").appendChild(newCompo1)
+            // let newCompo1 = Card.create({ text: "{{text1}}", text2: "{{text2}}", item: {} })
+            // // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr({}) + "'/>")
+            // this.$("#cont").appendChild(newCompo1)
+            let newCharacter = { "id": 14, "name": "Facundo Saiegh", "status": "Alive", "species": "Human", "type": "", "gender": "Male", "origin": { "name": "Earth (C-137)", "url": "https://rickandmortyapi.com/api/location/1" }, "location": { "name": "Citadel of Ricks", "url": "https://rickandmortyapi.com/api/location/3" }, "image": "https://rickandmortyapi.com/api/character/avatar/1.jpeg" }
+            this.setState("cards", { ...this.getState("cards"), results: [...this.getState("cards").results, newCharacter] })
+
         }
         handleClickDebug(e) {
             console.log("on click j-event")
@@ -144,7 +149,7 @@
 
         onChange(e) {
 
-            // console.log("#ON CHANGE", e, this.isEnabled())
+            console.log(" MAIN COMPONENT #ON CHANGE", e)
             // debugger
             if (!this.isEnabled()) return
             if (!((this.getState("cards") || {}).info || {}).next) this.$(".next").style.display = "none"
@@ -152,7 +157,7 @@
             if (!((this.getState("cards") || {}).info || {}).prev) this.$(".prev").style.display = "none"
             else this.$(".prev").style.display = "block"
 
-            this.createCards()
+            // this.createCards()
         }
 
 
