@@ -10,3 +10,9 @@ app.get("/*/*", (req, res) => {
 });
 
 app.listen(3000);
+
+// const { exec } = require("child_process");
+
+// let command = `C:\Program Files\Google\Chrome\Application\chrome.exe http://localhost:3000`;
+
+// exec(command);

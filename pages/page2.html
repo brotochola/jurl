@@ -4,6 +4,9 @@
 
 <span>
     <h1>page 2</h1>
+
+
+
     <j-if condition="showHiddenText()">
         <p>hidden text</p>
     </j-if>
@@ -16,6 +19,22 @@
 
     <button j-onclick="handleOnClickButton">change name</button>
 
+    <hr>
+
+    <p>first FOR tag:</p>
+    <j-for arr="{{testArr}}">
+        <p j-innerHTML="{{arr[i].name }}"> </p>
+    </j-for>
+    <hr>
+    <p>second FOR tag:</p>
+    <j-for arr="{{testArr}}">
+        <p> {{arr[i].name}}</p>
+    </j-for>
+
+    <br>
+    <button j-onclick="addItem">add item</button>
+
+
 </span>
 
 
@@ -24,7 +43,9 @@
     class Page2 extends Component {
 
 
-
+        addItem() {
+            this.setState("testArr", [...this.getState("testArr"), { name: Math.random(), lastName: "Doe" }])
+        }
 
         showHiddenText() {
 
@@ -33,6 +54,7 @@
         }
 
         onInit() {
+            this.setState("testArr", [{ name: "john" }, { name: "charly" }, { name: "sarah" }])
             this.setState("name", "pedro")
             window.page2 = this
         }

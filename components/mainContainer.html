@@ -34,9 +34,16 @@
 
     <button j-onclick="handleShowAll">show all</button>
     <!-- <input class="input2"> -->
+
+    <j-for arr="{{cards.results}}">
+        <app-card cards="{{arr}}" text1="{{text1}}"></app-card>
+    </j-for>
+
     <div id="cont">
 
     </div>
+
+
 </span>
 
 
@@ -46,6 +53,9 @@
 
 
         onInit() {
+
+
+
             this.setState("dynamicText", "this text is being generated dynamically, with data binding")
             this.setState("varofcompo2", "holissss")
 
@@ -83,9 +93,9 @@
             this.setState("text1", e.target.value)
         }
         async loadPageOfResults(url) {
-            console.log("#### load page", url)
+            // console.log("#### load page", url)
             let cards = await getDataFromAPI(url)
-            console.log("response", cards)
+            // console.log("response", cards)
             // this.cards = cards
             this.setState("cards", cards)
             // console.log(this.cards.info)
@@ -98,10 +108,12 @@
 
         async createCards() {
             console.log("CREATE CARDS")
-            if (this.getAllChildrenComponents().length > 0) {
-                this.update()
-                return
-            }
+
+
+            // if (this.getAllChildrenComponents().length > 0) {
+            //     this.update()
+            //     return
+            // }
 
             this.$("#cont").innerHTML = ""
             for (let i = 0; i < ((this.getState("cards") || {}).results || []).length; i++) {
@@ -132,7 +144,7 @@
 
         onChange(e) {
 
-            console.log("#ON CHANGE", e, this.isEnabled())
+            // console.log("#ON CHANGE", e, this.isEnabled())
             // debugger
             if (!this.isEnabled()) return
             if (!((this.getState("cards") || {}).info || {}).next) this.$(".next").style.display = "none"
