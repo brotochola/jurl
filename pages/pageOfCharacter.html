@@ -1,5 +1,7 @@
 <style>
-
+    li {
+        letter-spacing: 2px;
+    }
 </style>
 
 
@@ -8,13 +10,16 @@
 
     <h1>Character Page</h1>
 
-    <p j-innerHTML="{{routerdata.name}}"></p>
+    <p j-innerhtml="{{routerdata.name}}"></p>
 
-    <p>origin: <span j-innerHTML="{{routerdata.origin.name}}"></span> </p>
+    <p>origin: <span j-innerhtml="{{routerdata.origin.name}}"></span> </p>
     <br>
+
+    <img j-src="{{routerdata.image}}">
+
     <p>Episodes:</p>
     <j-for arr="{{routerdata.episode}}">
-        <li j-innerHTML="{{arr[i]}}"></li>
+        <li j-innerhtml="{{arr[i]}}"></li>
     </j-for>
 
 </page>

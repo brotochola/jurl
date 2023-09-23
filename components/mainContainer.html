@@ -21,29 +21,30 @@
         the main component sets an own color css variable, which is used by the circle component to change its color.
 
         By the way,
-        <span j-innerHTML="dynamicText"></span>
-    </p>
-    <button class="boton1" j-onclick="handleClick"> add</button>
-    <button class="boton12" j-onclick="handleClickDebug" j-onmouseover="handleonMouseOverDebug"> this button has a
-        j-onclick attr</button>
+        <spanj-innerhtml="dynamicText">
+</span>
+</p>
+<button class="boton1" j-onclick="handleClick"> add</button>
+<button class="boton12" j-onclick="handleClickDebug" j-onmouseover="handleonMouseOverDebug"> this button has a
+    j-onclick attr</button>
 
-    <button class="changeValBut" j-onclick="handleSetRandomColor"> set random color to css variable</button>
-    <button class="next" j-onclick="onClickNext">next</button>
-    <button class="prev" j-onclick="onClickPrev">prev</button>
-    <input class="input1" j-onkeyup="handleInputOnChange">
+<button class="changeValBut" j-onclick="handleSetRandomColor"> set random color to css variable</button>
+<button class="next" j-onclick="onClickNext">next</button>
+<button class="prev" j-onclick="onClickPrev">prev</button>
+<input class="input1" j-onkeyup="handleInputOnChange">
 
-    <button j-onclick="handleShowAll">show all</button>
-    <!-- <input class="input2"> -->
+<button j-onclick="handleShowAll">show all</button>
+<!-- <input class="input2"> -->
 
 
 
-    <div id="cont">
+<div id="cont">
 
-        <j-for arr="{{cards.results}}" text1="{{text1}}">
-            <app-card cards="{{arr}}" text1="{{text1}}"></app-card>
-        </j-for>
+    <j-for arr="{{cards.results}}" text1="{{text1}}">
+        <app-card cards="{{arr}}" text1="{{text1}}"></app-card>
+    </j-for>
 
-    </div>
+</div>
 
 
 </span>
