@@ -1,0 +1,50 @@
+<style>
+
+</style>
+
+
+<page>
+
+
+    <h1>Character Page</h1>
+
+    <p j-innerHTML="{{routerdata.name}}"></p>
+
+    <p>origin: <span j-innerHTML="{{routerdata.origin.name}}"></span> </p>
+    <br>
+    <p>Episodes:</p>
+    <j-for arr="{{routerdata.episode}}">
+        <li j-innerHTML="{{arr[i]}}"></li>
+    </j-for>
+
+</page>
+
+
+
+<script>
+    class CharacterPage extends Component {
+
+        onInit() {
+            //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
+            console.log("#on init character page", this.getState("routerdata"))
+
+        }
+
+
+
+
+
+        onChange(e) {
+
+            // this.onInit()
+
+        }
+
+        onDestroy() {
+
+        }
+
+    }
+
+    app.defineComponentsName(CharacterPage, "character-page")
+</script>

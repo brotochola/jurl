@@ -37,7 +37,7 @@
     <p class="small" j-innerHTML="uid"></p>
     <button j-onclick="onClickButton">change color</button>
     <app-tooltip></app-tooltip>
-    <app-image-compo src="{{imgurl}}"></app-image-compo>
+    <app-image-compo src="{{imgurl}}" j-onclick="gotoChar"></app-image-compo>
 
 
 
@@ -48,6 +48,11 @@
 
 <script>
     class Card extends Component {
+
+        gotoChar() {
+            app.navigate("/character", this.item)
+            console.log(this.item)
+        }
 
         onInit() {
             // console.log("#on init", this.uid, this.getState("cards"), this.getState("i"))
