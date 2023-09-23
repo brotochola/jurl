@@ -65,7 +65,10 @@
             window.mainC = this
         }
         handleShowAll(e) {
-            for (let c of this.getAllChildrenComponents()) {
+            let forTag = this.getAllChildrenComponents().filter(k => k instanceof ForTag)[0]
+            let cards = forTag.getAllChildrenComponents()
+
+            for (let c of cards) {
                 c.enable()
             }
         }

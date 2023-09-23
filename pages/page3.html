@@ -1,0 +1,57 @@
+<style>
+    .innerFor {
+        border: 1px solid green;
+        display: flex;
+    }
+
+    p.forParragraph {
+        margin: 2px;
+    }
+</style>
+
+<span>
+    <h1>page 3</h1>
+
+
+
+
+    <j-for arr="{{testarr}}">
+
+
+        <j-for arr="{{arr[i]}}" class="innerFor">
+            <p j-innerHTML="{{arr[i]}}" class="forParragraph"> </p>
+        </j-for>
+
+    </j-for>
+    <hr>
+    <!-- <p>second FOR tag:</p>
+    <j-for arr="{{testArr}}">
+        <p> {{arr[i].name}}</p>
+    </j-for> -->
+
+
+
+</span>
+
+
+
+<script>
+    class Page3 extends Component {
+
+
+        onInit() {
+            let arr1 = [1, 2, 3, 4, 5, 2, 4, 42, 4, 24, 6, 52, 42, 52, 25, 26]
+            let arr = []
+            for (let i = 0; i < 4; i++) arr.push(duplicate(i % 2 == 0 ? arr1 : arr1.reverse()))
+
+            this.setState("testarr", arr)
+        }
+
+        onChange(e) {
+
+        }
+
+    }
+
+    app.defineComponentsName(Page3, "app-page3")
+</script>
