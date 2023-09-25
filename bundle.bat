@@ -1,1 +1,1 @@
-uglifyjs lib/*.js > jurl.min.js
+uglifyjs -c  -- lib/*.js  > jurl.bundle.min.js

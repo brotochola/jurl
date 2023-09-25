@@ -20,7 +20,7 @@ A Javascript UI framework based on web components (custom elements)
 
 - COMPONENTS:
 
-  - A normal html file with a `<style>` tag, a single html element (div, span or same as the class), and a script. The script part is a js class that extends Component (which Extends html element)
+  - A normal html file with a `<style>` tag, a single html element (div, span or same as the class), and a script. The script part is a js class that extends JURL.Component (which Extends html element)
   - List of Component's methods:
     - `getAllChildrenComponents()` returns an array of all the components inside of this
     - `$(selector)` returns one or more elements inside of the component
