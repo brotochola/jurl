@@ -1,0 +1,1 @@
+uglifyjs lib/*.js > jurl.min.js
