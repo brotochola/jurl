@@ -1,0 +1,75 @@
+<style>
+    li {
+        cursor: pointer;
+        transition: all 0.5s;
+    }
+
+    li:hover {
+        background-color: gray;
+        color: white;
+
+    }
+</style>
+
+
+<episode>
+
+
+
+    <li j-onclick="showMoreData"> <span j-innerHTML="{{episodedata.name}}">loading</span>
+        <j-if condition="showMore">
+
+            <p>
+                <span j-innerHTML="{{episodedata.air_date}}"></span>
+                <span j-innerHTML="{{episodedata.episode}}"></span>
+            </p>
+
+
+        </j-if>
+
+    </li>
+
+
+</episode>
+
+
+
+<script>
+    class EpisodeItem extends JURL.Component {
+
+        showMoreData() {
+            this.setState("showMore", !this.getState("showMore"))
+        }
+
+        onInit() {
+            //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
+            // console.log("#on init character page", this.getState("routerdata"))
+            this.onChange()
+
+        }
+
+
+
+
+
+        onChange(e) {
+
+
+            this.url = this.getState("episodeurl")
+            if (this.url && !this.getState("episodedata")) {
+                getDataFromAPI(this.url).then(e => {
+                    this.setState("episodedata", e)
+                })
+
+            }
+
+        }
+
+        onDestroy() {
+
+        }
+
+    }
+
+    JURL.instance.defineComponentsName(EpisodeItem, "episode-item")
+</script>

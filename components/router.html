@@ -26,7 +26,7 @@
 
       window.router = this
 
-      app.navigate = this.navigate
+      JURL.instance.navigate = this.navigate
 
 
     }
@@ -41,6 +41,6 @@
 
   }
 
-  app.defineComponentsName(Router, "app-router")
+  JURL.instance.defineComponentsName(Router, "app-router")
 
 </script>
