@@ -78,3 +78,4 @@ TO DO LIST:
 
 - standarize use of {{}} for functions, arrays, etc
 - allow `<button j-onclick="{{()=>alert(1)}}"> alert</button>`
+- make sure nothing updates if it doesnt have to: check if it's the same value before compo.innerHTML=... or compo[attr]=
