@@ -1,0 +1,111 @@
+<style>
+    .innerFor {
+        border: 1px solid green;
+        display: flex;
+        height: 20px;
+    }
+
+
+    .innerFor:nth-child(odd) {
+        background-color: rgba(0, 0, 255, 0.4);
+    }
+
+    p.forParragraph:nth-child(odd) {
+        background-color: rgba(255, 0, 0, 0.4);
+        ;
+    }
+
+    p.forParragraph {
+        margin: 2px;
+
+    }
+
+    input {
+        user-select: none;
+
+    }
+</style>
+
+<span>
+    <h1>page 4</h1>
+
+    move this:
+    <input type="range" min="0" max="100" step="0.01" j-oninput="handleOnChangeSlider">
+
+
+    <input style="pointer-events: none;" type="range" min="0" max="200" step="0.01" j-value="{{slidervalue}}">
+
+
+
+    <p j-innerhtml="{{()=>this.tagName}}"></p>
+
+    <p j-innerhtml="{{this.uid}}"
+        j-style="{{'opacity: '+this.state.slidervalue/100 +' ; color:red; font-weight:bold; font-size:'+this.state.slidervalue+'px ; transform:rotate('+(-10+this.state.slidervalue/5)+'deg)  '}}">
+    </p>
+
+    <p j-innerhtml="{{slidervalue}}"></p>
+
+
+
+    <j-for arr="{{dynamicArray}}">
+
+
+        <j-for arr="{{arr[i]}}" class="innerFor">
+            <p j-innerhtml="{{arr[i]}}" class="forParragraph"> oh</p>
+        </j-for>
+
+    </j-for>
+    <hr>
+    <!-- <p>second FOR tag:</p>
+    <j-for arr="{{testArr}}">
+        <p> {{arr[i].name}}</p>
+    </j-for> -->
+
+
+
+</span>
+
+
+
+<script>
+    class Page4 extends JURL.Component {
+
+
+        onInit() {
+            window.page4 = this
+            let arr1 = [1, 2, 3, 4, 5, 2, 4, 42, 4, 24, 6, 52, 42, 52, 25, 26]
+            let arr = []
+            for (let i = 0; i < 4; i++) arr.push(duplicate(i % 2 == 0 ? arr1 : arr1.reverse()))
+
+            this.setState("testarr", arr)
+
+
+            this.setState("slidervalue", 50)
+        }
+        handleOnChangeSlider(e) {
+            // console.log(e.target.value)
+            this.setState("slidervalue", e.target.value)
+        }
+
+        generateStylesForRotatingP() {
+            return "background: black;"
+        }
+        onChange(e) {
+            if (e["slidervalue"]) {
+                let newArr = []
+                for (let i = 0; i < Math.floor(e["slidervalue"].current / 5); i++) {
+                    let inner = []
+                    for (let j = 0; j < Math.floor(e["slidervalue"].current / 5); j++) {
+                        inner.push(Math.random().toFixed(2))
+                    }
+                    newArr.push(inner)
+                }
+
+                this.setState("dynamicArray", newArr)
+            }
+        }
+
+    }
+
+    JURL.instance.defineComponentsName(Page4, "app-page4")
+</script>

@@ -78,4 +78,3 @@ TO DO LIST:
 
 - standarize use of {{}} for functions, arrays, etc
 - allow `<button j-onclick="{{()=>alert(1)}}"> alert</button>`
-- make a log of all updates by all components, to keep track everything works fine
