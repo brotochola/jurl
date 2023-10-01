@@ -44,17 +44,26 @@ A Javascript UI framework based on web components (custom elements)
 
 - State and Props
   I treat states and props the same, they are attributes of the html element
-  A component with an attribute set with double curly bracks will take the value fromt he parent's state (since the component is instanciated in the parent).
+  A component with an attribute set with double curly bracks will take the value from the parent (since the component is instanciated in the parent).
 
-  `<my-component username={{user.data.username}} />`
+  `<my-component username={{state.user.data.username}} />`
 
   This example creates a "my-component" type of component, which was loaded from a single html file, with the attribute/prop/state of username set to "parent.state.user.data.username". And this is reactive: each time the parent component changes its "state.user" it will trigger an update on the child "my-component". When "my-component" updates it will check the value of parent.user.data.username and the current value it has, and get the new value. And 'rerender'. We don't really use rerender, but it will check where that state is used and update the DOM elements. Only those elements that gotta be updated.
 
 - Data-binding
-  {{nameOfState}} takes the value from the state.
+  {{nameOfState}} takes the value from the component.
   examples:
   `<p j-innerhtml="{{person.name}}"></p>`
   `<img j-src="{{person.image}}">`
+
+- Components' lifecycle:
+
+  - contructor
+  - onInit
+  - onChange
+  - onEnabled
+  - onDisabled
+  - onDestroy
 
 - Magic stuff:
   - `<j-if condition="{{shouldShow()}}"> <p>hi</p></j-if>`

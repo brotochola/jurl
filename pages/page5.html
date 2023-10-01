@@ -24,6 +24,14 @@
         user-select: none;
 
     }
+
+    span {
+        font-weight: bold;
+    }
+
+    p {
+        font-weight: 200;
+    }
 </style>
 
 <span>
@@ -50,16 +58,17 @@
         <span j-innerhtml="{{(()=>this.state.slidervalue)()}}"></span>
     </p>
 
-    <p>{{getSomeValue()}}
+    <p>{{getSomeValue() }}
         <span j-innerhtml="{{getSomeValue()}}"></span>
     </p>
 
-
-    <p>{{ await this.getSomeAsyncValue()}}
-        <span j-innerhtml="{{   await this.getSomeAsyncValue()}}"></span>
+    <p>{{(this.getSomeValue() + this.getSomeValue()) +"hello"}}
+        <span j-innerhtml='{{(this.getSomeValue() + this.getSomeValue()) +" hello"}}'></span>
     </p>
 
-
+    <p>{{someRandomValue}}
+        <span j-innerhtml="{{someRandomValue}}"></span>
+    </p>
 
 
     <hr>
@@ -81,6 +90,7 @@
         onInit() {
             window.page5 = this
             this.setState("slidervalue", 50)
+            this.someRandomValue = Math.random() * 100
         }
         handleInputOnChange(e) {
             // console.log(e.target.value)
@@ -91,12 +101,13 @@
             return Math.random()
         }
 
-        async getSomeAsyncValue() {
-            let data = await getDataFromAPI("https://rickandmortyapi.com/api/character")
-            return data
+        onEnabled() {
+            console.log("page 5 on enabled")
         }
 
         onChange(e) {
+            console.log("page5 on change", e)
+            this.someRandomValue = Math.random() * 100
             // if (e["slidervalue"]) { }
         }
 
