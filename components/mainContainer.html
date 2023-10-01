@@ -24,14 +24,14 @@
         <spanj-innerhtml="dynamicText">
 </span>
 </p>
-<button class="boton1" j-onclick="handleClick"> add</button>
-<button class="boton12" j-onclick="handleClickDebug" j-onmouseover="handleonMouseOverDebug"> this button has a
+<button class="boton1" j-onclick="{{handleClick}}"> add</button>
+<button class="boton12" j-onclick="{{handleClickDebug}}" j-onmouseover="{{handleonMouseOverDebug}}"> this button has a
     j-onclick attr</button>
 
-<button class="changeValBut" j-onclick="handleSetRandomColor"> set random color to css variable</button>
-<button class="next" j-onclick="onClickNext">next</button>
-<button class="prev" j-onclick="onClickPrev">prev</button>
-<input class="input1" j-onkeyup="handleInputOnChange">
+<button class="changeValBut" j-onclick="{{handleSetRandomColor}}"> set random color to css variable</button>
+<button class="next" j-onclick="{{onClickNext}}">next</button>
+<button class="prev" j-onclick="{{onClickPrev}}">prev</button>
+<input class="input1" j-onkeyup="{{handleInputOnChange}}">
 
 <button j-onclick="handleShowAll">show all</button>
 <!-- <input class="input2"> -->
@@ -40,8 +40,8 @@
 
 <div id="cont">
 
-    <j-for arr="{{cards.results}}" text1="{{text1}}">
-        <app-card cards="{{arr}}" text1="{{text1}}"></app-card>
+    <j-for arr="{{state.cards.results}}" text1="{{state.text1}}">
+        <app-card cards="{{state.arr}}" text1="{{state.text1}}"></app-card>
     </j-for>
 
 </div>
@@ -113,7 +113,7 @@
 
 
         async createCards() {
-            console.log("CREATE CARDS")
+            // console.log("CREATE CARDS")
 
 
             if ((this.$("#cont app-card") || []).length > 0) {
@@ -153,7 +153,7 @@
 
         onChange(e) {
 
-            console.log(" MAIN COMPONENT #ON CHANGE", e)
+            // console.log(" MAIN COMPONENT #ON CHANGE", e)
             // debugger
             if (!this.isEnabled()) return
             if (!((this.getState("cards") || {}).info || {}).next) this.$(".next").style.display = "none"

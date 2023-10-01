@@ -31,13 +31,13 @@
 
 
 <componente1>
-    <p class="title colorChange" j-innerhtml="title"></p>
-    <p class="dynamicText" j-innerhtml="text1"></p>
-    <button j-onclick="handleOnClickHide">hide</button>
-    <p class="small" j-innerhtml="uid"></p>
-    <button j-onclick="onClickButton">change color</button>
+    <p class="title colorChange" j-innerhtml="{{state.title}}"></p>
+    <p class="dynamicText" j-innerhtml="{{state.text1}}"></p>
+    <button j-onclick="{{handleOnClickHide}}">hide</button>
+    <p class="small" j-innerhtml="{{uid}}"></p>
+    <button j-onclick="{{onClickButton}}">change color</button>
     <app-tooltip></app-tooltip>
-    <app-image-compo src="{{imgurl}}" j-onclick="gotoChar"></app-image-compo>
+    <app-image-compo src="{{state.imgurl}}" j-onclick="gotoChar"></app-image-compo>
 
 
 
@@ -65,7 +65,7 @@
                 this.setState("imgurl", this.item.image)
             }
 
-
+            window.cardC = this
 
 
 

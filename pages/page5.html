@@ -1,0 +1,73 @@
+<style>
+    .innerFor {
+        border: 1px solid green;
+        display: flex;
+        height: 20px;
+    }
+
+
+    .innerFor:nth-child(odd) {
+        background-color: rgba(0, 0, 255, 0.4);
+    }
+
+    p.forParragraph:nth-child(odd) {
+        background-color: rgba(255, 0, 0, 0.4);
+        ;
+    }
+
+    p.forParragraph {
+        margin: 2px;
+
+    }
+
+    input {
+        user-select: none;
+
+    }
+</style>
+
+<span>
+    <h1>page 5</h1>
+
+
+    <input type="range" min="0" max="100" step="0.01" j-oninput="{{handleInputOnChange}}">
+
+
+    <p j-innerhtml="{{state.slidervalue}}"></p>
+
+
+
+    <hr>
+    <!-- <p>second FOR tag:</p>
+    <j-for arr="{{testArr}}">
+        <p> {{arr[i].name}}</p>
+    </j-for> -->
+
+
+
+</span>
+
+
+
+<script>
+    class Page5 extends JURL.Component {
+
+
+        onInit() {
+
+            this.setState("slidervalue", 50)
+        }
+        handleInputOnChange(e) {
+            // console.log(e.target.value)
+            this.setState("slidervalue", e.target.value)
+        }
+
+
+        onChange(e) {
+            // if (e["slidervalue"]) { }
+        }
+
+    }
+
+    JURL.instance.defineComponentsName(Page5, "app-page5")
+</script>

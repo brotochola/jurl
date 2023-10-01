@@ -2,7 +2,8 @@
     <button onclick="app.navigate('/')">root </button>
     <button onclick="app.navigate('/page2')">page 2</button>
     <button onclick="app.navigate('/page3',{dummy:'data'})">page3</button>
-    <button j-onclick="gotoPAge4">page4</button>
+    <button j-onclick="{{gotoPAge4}}">page4</button>
+    <button j-onclick="{{gotoPAge5}}">page5</button>
     <hr>
 </header>
 
@@ -15,10 +16,14 @@
 
         }
         async gotoPAge4() {
+            console.log("##", this)
             await app.loadComponent("pages/page4.html")
             app.navigate('/page4')
         }
-
+        async gotoPAge5() {
+            await app.loadComponent("pages/page5.html")
+            app.navigate('/page5')
+        }
     }
 
 

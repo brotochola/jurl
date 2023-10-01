@@ -15,11 +15,11 @@
 
 
 
-    <j-for arr="{{testarr}}">
+    <j-for arr="{{state.testarr}}">
 
 
-        <j-for arr="{{arr[i]}}" class="innerFor">
-            <p j-innerhtml="{{arr[i]}}" class="forParragraph"> {{arr[i]}}</p>
+        <j-for arr="{{state.arr[i]}}" class="innerFor">
+            <p j-innerhtml="{{state.arr[i]}}" class="forParragraph"></p>
         </j-for>
 
     </j-for>

@@ -77,5 +77,9 @@ A Javascript UI framework based on web components (custom elements)
 TO DO LIST:
 
 - standarize use of {{}} for functions, arrays, etc
+
+https://stackoverflow.com/questions/33308121/can-you-bind-this-in-an-arrow-function
+
+- improve evalInComponent function
 - allow `<button j-onclick="{{()=>alert(1)}}"> alert</button>`
 - make sure nothing updates if it doesnt have to: check if it's the same value before compo.innerHTML=... or compo[attr]=

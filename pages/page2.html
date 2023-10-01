@@ -7,23 +7,23 @@
 
 
 
-    <j-if condition="showHiddenText()">
+    <j-if condition="{{showHiddenText()}}">
         <p>hidden text</p>
     </j-if>
 
 
-    <j-if condition="showHidden2">
+    <j-if condition="{{state.showhidden2}}">
         <p>hidden text 2</p>
     </j-if>
 
 
-    <button j-onclick="handleOnClickButton">change name</button>
+    <button j-onclick="{{handleOnClickButton}}">change name</button>
 
     <hr>
 
     <p>first FOR tag:</p>
-    <j-for arr="{{testArr}}">
-        <p j-innerhtml="{{arr[i].name }}"> </p>
+    <j-for arr="{{state.testarr}}">
+        <p j-innerhtml="{{state.arr[i].name }}"> </p>
     </j-for>
     <hr>
     <!-- <p>second FOR tag:</p>
@@ -32,7 +32,7 @@
     </j-for> -->
 
     <br>
-    <button j-onclick="addItem">add item</button>
+    <button j-onclick="{{addItem}}">add item</button>
 
 
 </span>
