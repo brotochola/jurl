@@ -16,12 +16,12 @@
 
 
 
-    <li j-onclick="showMoreData"> <span j-innerHTML="{{episodedata.name}}">loading</span>
-        <j-if condition="showMore">
+    <li j-onclick="{{showMoreData}}"> <span j-innerHTML="{{state.episodedata.name}}">loading</span>
+        <j-if condition="{{state.showmore}}">
 
             <p>
-                <span j-innerHTML="{{episodedata.air_date}}"></span>
-                <span j-innerHTML="{{episodedata.episode}}"></span>
+                <span j-innerHTML="{{state.episodedata.air_date}}"></span>
+                <span j-innerHTML="{{state.episodedata.episode}}"></span>
             </p>
 
 
@@ -38,6 +38,7 @@
     class EpisodeItem extends JURL.Component {
 
         showMoreData() {
+
             this.setState("showMore", !this.getState("showMore"))
         }
 
