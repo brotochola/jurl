@@ -49,9 +49,11 @@
 <script>
     class Card extends JURL.Component {
 
-        gotoChar() {
-            app.navigate("/character", this.item)
-            console.log(this.item)
+        async gotoChar() {
+            if (await app.loadComponent("pages/characterPage.html")) app.navigate('/character', this.item)
+
+
+
         }
 
         onInit() {

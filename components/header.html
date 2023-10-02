@@ -1,9 +1,9 @@
 <header style="height:50px">
     <button onclick="app.navigate('/')">root </button>
-    <button onclick="app.navigate('/page2')">page 2</button>
-    <button onclick="app.navigate('/page3',{dummy:'data'})">page3</button>
-    <button j-onclick="{{gotoPAge4}}">page4</button>
-    <button j-onclick="{{gotoPAge5}}">examples of data binding</button>
+    <button j-onclick="{{()=>this.gotoPage(2,{dummy:123})}}">"if" example</button>
+    <button j-onclick="{{()=>this.gotoPage(3,{dummy:123})}}">"for" example</button>
+    <button j-onclick="{{()=>this.gotoPage(4)}}">slider and dynamic style</button>
+    <button j-onclick="{{()=>this.gotoPage(5)}}">examples of data binding</button>
     <hr>
 </header>
 
@@ -15,15 +15,11 @@
             super();
 
         }
-        async gotoPAge4() {
-            console.log("##", this)
-            await app.loadComponent("pages/page4.html")
-            app.navigate('/page4')
+        async gotoPage(num, data) {
+
+            if (await app.loadComponent("pages/page" + num + ".html")) app.navigate('/page' + num, data)
         }
-        async gotoPAge5() {
-            await app.loadComponent("pages/page5.html")
-            app.navigate('/page5')
-        }
+
     }
 
 

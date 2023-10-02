@@ -24,6 +24,9 @@
 
     </j-for>
     <hr>
+
+
+
     <!-- <p>second FOR tag:</p>
     <j-for arr="{{testArr}}">
         <p> {{arr[i].name}}</p>
@@ -40,6 +43,7 @@
 
 
         onInit() {
+            window.page3 = this
             let arr1 = [1, 2, 3, 4, 5, 2, 4, 42, 4, 24, 6, 52, 42, 52, 25, 26]
             let arr = []
             for (let i = 0; i < 4; i++) arr.push(duplicate(i % 2 == 0 ? arr1 : arr1.reverse()))

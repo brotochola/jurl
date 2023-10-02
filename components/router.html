@@ -23,19 +23,14 @@
 
 
   class Router extends JURL.RouterComponent {
-    constructor() {
-      super();
+    onInit() {
+
 
       window.router = this
 
       JURL.instance.navigate = this.navigate
 
 
-    }
-
-    onInit() {
-      // console.trace("#oninit router")
-      // debugger
     }
 
 
