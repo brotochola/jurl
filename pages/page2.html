@@ -12,7 +12,7 @@
     </j-if>
 
 
-    <j-if condition="{{state.showhidden2}}">
+    <j-if condition="{{state.showHidden2}}">
         <p>hidden text 2</p>
     </j-if>
 
@@ -22,7 +22,7 @@
     <hr>
 
     <p>first FOR tag:</p>
-    <j-for arr="{{state.testarr}}">
+    <j-for arr="{{state.testArr}}">
         <p j-innerhtml="{{state.arr[i].name }}"> </p>
     </j-for>
     <hr>
@@ -40,6 +40,8 @@
 
 
 <script>
+
+
     class Page2 extends JURL.Component {
 
 

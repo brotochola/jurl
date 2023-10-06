@@ -40,8 +40,8 @@
 
 <div id="cont">
 
-    <j-for arr="{{state.cards.results}}" text1="{{state.text1}}">
-        <app-card cards="{{state.arr}}" text1="{{state.text1}}"></app-card>
+    <j-for arr="{{state.cards.results}}" text1="{{state.text1}}" setText1="{{settext1}}">
+        <app-card cards="{{state.arr}}" text1="{{state.text1}}" setText1="{{state.settext1}}"></app-card>
     </j-for>
 
 </div>
@@ -54,13 +54,17 @@
 <script>
     class MainContainer extends JURL.Component {
 
-
+        settext1(t) {
+            this.setState("text1", t)
+        }
         onInit() {
 
 
 
             this.setState("dynamicText", "this text is being generated dynamically, with data binding")
             this.setState("varofcompo2", "holissss")
+
+            this.setState("text1", "")
 
             this.loadPageOfResults("https://rickandmortyapi.com/api/character")
             window.mainC = this

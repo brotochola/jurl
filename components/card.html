@@ -31,14 +31,18 @@
 
 
 <componente1>
+
+
+    <p id="pep"> </p>
+
     <p class="title colorChange" j-innerhtml="{{state.title}}"></p>
     <p class="dynamicText" j-innerhtml="{{state.text1}}"></p>
     <button j-onclick="{{handleOnClickHide}}">hide</button>
     <p class="small" j-innerhtml="{{uid}}"></p>
     <button j-onclick="{{onClickButton}}">change color</button>
     <app-tooltip></app-tooltip>
-    <app-image-compo src="{{state.imgurl}}" j-onclick="{{gotoChar}}"></app-image-compo>
-
+    <app-image-compo src="{{state.imgUrl}}" j-onclick="{{gotoChar}}"></app-image-compo>
+    <input j-oninput="{{setText1InParent}}" j-value="{{state.text1}}">
 
 
 
@@ -47,7 +51,13 @@
 
 
 <script>
+
+
+
     class Card extends JURL.Component {
+        setText1InParent(e) {
+            this.state.settext1(e.target.value)
+        }
 
         async gotoChar() {
             if (await app.loadComponent("pages/characterPage.html")) app.navigate('/character', this.item)
@@ -64,7 +74,7 @@
 
             if (this.item) {
                 this.setState("title", this.item.name)
-                this.setState("imgurl", this.item.image)
+                this.setState("imgUrl", this.item.image)
             }
 
             window.cardC = this

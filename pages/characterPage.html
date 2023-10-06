@@ -10,15 +10,15 @@
 
     <h1>Character Page</h1>
 
-    <p j-innerhtml="{{state.routerdata.name}}"></p>
+    <p j-innerhtml="{{state.routerData.name}}"></p>
 
-    <p>origin: <span j-innerhtml="{{state.routerdata.origin.name}}"></span> </p>
+    <p>origin: <span j-innerhtml="{{state.routerData.origin.name}}"></span> </p>
     <br>
 
-    <img j-src="{{state.routerdata.image}}">
+    <img j-src="{{state.routerData.image}}">
 
     <p>Episodes:</p>
-    <j-for arr="{{state.routerdata.episode}}">
+    <j-for arr="{{state.routerData.episode}}">
         <episode-item episodeurl="{{state.arr[i]}}"></episode-item>
     </j-for>
 

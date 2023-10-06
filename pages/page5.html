@@ -44,18 +44,18 @@
     <h4>There are different ways of using data-bind in JURL</h4>
 
 
-    <p>{{state.slidervalue}}
-        <span j-innerhtml="{{state.slidervalue}}"></span>
+    <p>{{state.sliderValue}}
+        <span j-innerhtml="{{state.sliderValue}}"></span>
     </p>
 
 
-    <p>slidervalue <span j-innerhtml="slidervalue"></span></p>
+    <p>sliderValue <span j-innerhtml="sliderValue"></span></p>
 
 
-    <p>{{this.state.slidervalue}} <span j-innerhtml="{{this.state.slidervalue}}"></span></p>
+    <p>{{this.state.sliderValue}} <span j-innerhtml="{{this.state.sliderValue}}"></span></p>
 
-    <p>{{(()=>this.state.slidervalue)()}}
-        <span j-innerhtml="{{(()=>this.state.slidervalue)()}}"></span>
+    <p>{{(()=>this.state.sliderValue)()}}
+        <span j-innerhtml="{{(()=>this.state.sliderValue)()}}"></span>
     </p>
 
     <p>{{getSomeValue() }}
@@ -89,12 +89,12 @@
 
         onInit() {
             window.page5 = this
-            this.setState("slidervalue", 50)
+            this.setState("sliderValue", 50)
             this.someRandomValue = Math.random() * 100
         }
         handleInputOnChange(e) {
             // console.log(e.target.value)
-            this.setState("slidervalue", e.target.value)
+            this.setState("sliderValue", e.target.value)
         }
 
         getSomeValue() {
@@ -108,7 +108,7 @@
         onChange(e) {
             console.log("page5 on change", e)
             this.someRandomValue = Math.random() * 100
-            // if (e["slidervalue"]) { }
+            // if (e["sliderValue"]) { }
         }
 
     }
