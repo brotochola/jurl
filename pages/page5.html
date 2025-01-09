@@ -34,7 +34,7 @@
     }
 </style>
 
-<span>
+<section>
     <h1>page 5</h1>
 
 
@@ -77,13 +77,15 @@
         <p> {{arr[i].name}}</p>
     </j-for> -->
 
-    <pre j-innerHTML="{{JSON.stringify(this.state,null,2)}}"></pre>
+    <!-- <pre j-innerHTML="{{JSON.stringify(this.state,null,2)}}"></pre> -->
+     <j-debug> {{this.state}}</j-debug>
 
-</span>
+</section>
 
 
 
 <script>
+    
     class Page5 extends JURL.Component {
 
 
