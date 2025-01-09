@@ -8,10 +8,6 @@
         justify-content: space-between;
         align-items: center;
     }
-
-    /* #cont *[enabled="false"] {
-        display: none;
-    } */
 </style>
 
 <span>
@@ -21,31 +17,34 @@
         the main component sets an own color css variable, which is used by the circle component to change its color.
 
         By the way,
-        <spanj-innerhtml="dynamicText">
-</span>
-</p>
-<button class="boton1" j-onclick="{{handleClick}}"> add</button>
-<button class="boton12" j-onclick="{{handleClickDebug}}" j-onmouseover="{{handleonMouseOverDebug}}"> this button has a
-    j-onclick attr</button>
+        <span j-innerhtml="dynamicText"></span>
+    </p>
+    <button class="boton1" j-onclick="{{handleClick}}"> add</button>
+    <button class="boton12" j-onclick="{{handleClickDebug}}" j-onmouseover="{{handleonMouseOverDebug}}"> this button has
+        a
+        j-onclick attr</button>
 
-<button class="changeValBut" j-onclick="{{handleSetRandomColor}}"> set random color to css variable</button>
-<button class="next" j-onclick="{{onClickNext}}">next</button>
-<button class="prev" j-onclick="{{onClickPrev}}">prev</button>
-<input class="input1" j-onkeyup="{{handleInputOnChange}}">
+    <button class="changeValBut" j-onclick="{{handleSetRandomColor}}"> set random color to css variable</button>
+    <button class="next" j-onclick="{{onClickNext}}">next</button>
+    <button class="prev" j-onclick="{{onClickPrev}}">prev</button>
+    <input class="input1" j-onkeyup="{{handleInputOnChange}}">
 
-<button j-onclick="{{handleShowAll}}">show all</button>
-<!-- <input class="input2"> -->
-
+    <button j-onclick="{{handleShowAll}}">show all</button>
 
 
-<div id="cont">
 
-    <j-for arr="{{state.cards.results}}" text1="{{state.text1}}" setText1="{{settext1}}">
-        <app-card cards="{{state.arr}}" text1="{{state.text1}}" setText1="{{state.settext1}}"></app-card>
-    </j-for>
 
-</div>
+    <div id="cont">
 
+        <j-for arr="{{state.cards.results}}" text1="{{state.text1}}" setText1="{{settext1}}">
+            <app-card cards="{{state.arr}}" text1="{{state.text1}}" setText1="{{state.settext1}}"></app-card>
+        </j-for>
+
+    
+    </div>
+
+    <!-- <pre j-innerHTML="{{JSON.stringify(this.state,null,2)}}"></pre> -->
+<!-- <j-debug> {{this.state}}</j-debug> -->
 
 </span>
 
@@ -116,26 +115,26 @@
 
 
 
-        async createCards() {
-            // console.log("CREATE CARDS")
+        // async createCards() {
+        //     // console.log("CREATE CARDS")
 
 
-            if ((this.$("#cont app-card") || []).length > 0) {
-                this.update()
-                return
-            }
+        //     if ((this.$("#cont app-card") || []).length > 0) {
+        //         this.update()
+        //         return
+        //     }
 
-            this.$("#cont").innerHTML = ""
-            for (let i = 0; i < ((this.getState("cards") || {}).results || []).length; i++) {
+        //     this.$("#cont").innerHTML = ""
+        //     for (let i = 0; i < ((this.getState("cards") || {}).results || []).length; i++) {
 
-                // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr(item) + "'/>")
-                let newCompo1 = Card.create({ text1: "{{text1}}", text2: "{{text2}}", i: i, cards: "{{cards.results}}" })
+        //         // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr(item) + "'/>")
+        //         let newCompo1 = Card.create({ text1: "{{text1}}", text2: "{{text2}}", i: i, cards: "{{cards.results}}" })
 
-                this.$("#cont").appendChild(newCompo1)
-            }
+        //         this.$("#cont").appendChild(newCompo1)
+        //     }
 
 
-        }
+        // }
 
         handleClick(e) {
             // let newCompo1 = Card.create({ text: "{{text1}}", text2: "{{text2}}", item: {} })

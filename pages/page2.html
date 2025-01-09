@@ -1,6 +1,5 @@
-<style>
 
-</style>
+<style > </style>
 
 <span>
     <h1>page 2</h1>
@@ -32,7 +31,9 @@
     </j-for> -->
 
     <br>
-    <button j-onclick="{{addItem}}">add item</button>
+    
+
+    <button  j-onclick="{{addItem}}">add item</button>
 
 
 </span>
@@ -44,6 +45,9 @@
 
     class Page2 extends JURL.Component {
 
+        cambiarEstilo(){
+            this.style.color="red"
+        }
 
         addItem() {
             this.setState("testArr", [...this.getState("testArr"), { name: Math.random(), lastName: "Doe" }])
