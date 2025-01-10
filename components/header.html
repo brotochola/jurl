@@ -1,9 +1,14 @@
 <header style="height:50px">
-    <button onclick="app.navigate('/')">root </button>
+    <button onclick="app.navigate('/')">HOME </button>
     <button j-onclick="{{()=>this.gotoPage(2,{dummy:123})}}">"if" example</button>
     <button j-onclick="{{()=>this.gotoPage(3,{dummy:123})}}">"for" example</button>
     <button j-onclick="{{()=>this.gotoPage(4)}}">slider and dynamic style</button>
     <button j-onclick="{{()=>this.gotoPage(5)}}">examples of data binding</button>
+    <button j-onclick="{{()=>this.gotoPage(6)}}">J-class</button>
+
+    <button onclick="app.navigate('/wrongroute')">wrong route </button>
+    <hr>
+
     <hr>
 </header>
 

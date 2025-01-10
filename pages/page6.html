@@ -1,0 +1,76 @@
+<style>
+    .red {
+        transition: all 0.5s;
+        color: red;
+        transform: rotate(-2deg);
+    }
+
+    .black {
+        transition: all 0.5s;
+        color: black;
+        transform: rotate(2deg);
+    }
+</style>
+
+<section>
+    <h1>J-class</h1>
+    <button j-onclick="{{setRandomValue}}">cambiar</button>
+
+    <p j-classname="{{this.state.color?'red':'black'}}">prueba de j-classname</p>
+
+    <p j-style="{{getStyle()}}">prueba de j-style</p>
+
+    <j-debug> {{this.state}}</j-debug>
+
+</section>
+
+
+
+<script>
+
+    class Page6 extends JURL.Component {
+        blackStyle = {
+            color: "black",
+            transform: "rotate(1deg)",
+            transition: "all 0.5s"
+        }
+
+        redStyle = {
+            color: "red",
+            transform: "rotate(-1deg)",
+            transition: "all 0.5s"
+        }
+
+        getStyle() {
+            return this.state.color ? this.redStyle : this.blackStyle
+        }
+        setRandomValue() {
+
+            this.setState("color", this.state.color ? 0 : 1)
+        }
+
+        onInit() {
+            window.page6 = this
+            this.setState("color", 1)
+
+        }
+
+
+        getSomeValue() {
+            return Math.random()
+        }
+
+        onEnabled() {
+            console.log("page 6 on enabled")
+        }
+
+        // onChange(e) {
+        //     console.log("page5 on change", e)
+        //     this.someRandomValue = Math.random() * 100
+        //     // if (e["sliderValue"]) { }
+        // }
+
+    }
+
+    JURL.instance.defineComponentsName(Page6, "app-page6")
+</script>

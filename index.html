@@ -24,7 +24,7 @@
             app = new JURL.App({ root: document.querySelector("app"), saveLog: true })
 
             await app.loadManyComponents([
-                "components/mainContainer.html",
+                "pages/home.html", //this page is here because we need it preloaded
                 "components/card.html",
                 "components/tooltip.html",
                 "components/image_compo.html",
@@ -53,9 +53,7 @@
         <app-router></app-router>
 
 
-
-
-
+    
     </app>
 
 
