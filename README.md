@@ -86,5 +86,9 @@ A Javascript UI framework based on web components (custom elements)
   - j-style:
     - some expresion that returns an object, this goes in js format (camelCase), not css format:
     - `<app-my-component j-style="{{{color:'red',fontSize: this.getFontSize()}}}" />`
+  - j-some-attribute:
+    - `<p j-inner-text="{{'hey'}}">` will result in setting the `innerText` property of the p element.
+    - snake-case is converted to camelCase, so inner-h-t-m-l will result in innerHTML and class-name results in className
+    - It's a way of passing variables from the markup to whatever property of the element
 
 ---

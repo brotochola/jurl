@@ -39,8 +39,7 @@
 
     <p j-innerhtml="{{tagName}}"></p>
 
-    <p j-innerhtml="{{uid}}"
-        j-style="{{'opacity: '+this.state.sliderValue/100 +' ; color:red; font-weight:bold; font-size:'+this.state.sliderValue+'px ; transform:rotate('+(-10+this.state.sliderValue/5)+'deg)  '}}">
+    <p j-innerhtml="{{uid}}" j-style="{{{ opacity: this.state.sliderValue / 100, color: 'red', fontWeight: 'bold', fontSize: this.state.sliderValue + 'px', transform: 'rotate(' + (-10 + this.state.sliderValue / 5) + 'deg)' }}}">
     </p>
 
     <p j-innerhtml="{{state.sliderValue}}"></p>
@@ -56,10 +55,6 @@
 
     </j-for>
     <hr>
-    <!-- <p>second FOR tag:</p>
-    <j-for arr="{{testArr}}">
-        <p> {{arr[i].name}}</p>
-    </j-for> -->
 
 
 
@@ -70,6 +65,9 @@
 <script>
     class Page4 extends JURL.Component {
 
+        // makeStyleForP() {
+        //     return { opacity: this.state.sliderValue / 100, color: 'red', fontWeight: 'bold', fontSize: this.state.sliderValue + 'px', transform: 'rotate(' + (-10 + this.state.sliderValue / 5) + 'deg)' }
+        // }
 
         onInit() {
             console.log("#### on init page4")
