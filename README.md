@@ -88,3 +88,14 @@ A Javascript UI framework based on web components (custom elements)
     - `<app-my-component j-style="{{{color:'red',fontSize: this.getFontSize()}}}" />`
 
 ---
+
+
+
+
++++++
+
+TODO:
+- communitacion between components
+- make it a module
+- JSDOCS
+- quiza puedo no usar un elemento q contenga a todo el componente, y ver :host{} de css
