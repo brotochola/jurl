@@ -10,7 +10,7 @@
     }
 </style>
 
-<span>
+<home>
     <p>This is the main component, which loads data from an external API, and generates dynamically as many Card
         components as needed. Each of these card component has an image component and a circle component. The card
         component takes the url attribute and passes it to tthe image component, which renders it. On the other hand,
@@ -40,25 +40,28 @@
             <app-card cards="{{state.arr}}" text1="{{state.text1}}" setText1="{{state.settext1}}"></app-card>
         </j-for>
 
-    
+
     </div>
 
     <!-- <pre j-innerHTML="{{JSON.stringify(this.state,null,2)}}"></pre> -->
-<!-- <j-debug> {{this.state}}</j-debug> -->
+    <!-- <j-debug> {{this.state}}</j-debug> -->
 
-</span>
+</home>
 
 
 
-<script>
-    class Home extends JURL.Component {
+<script type="module">
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    import { getDataFromAPI } from "../lib/utils.js"
+    class Home extends Component {
 
         settext1(t) {
             this.setState("text1", t)
         }
         onInit() {
 
-
+            window.home = this
 
             this.setState("dynamicText", "this text is being generated dynamically, with data binding")
             this.setState("varofcompo2", "holissss")
@@ -69,7 +72,7 @@
             window.mainC = this
         }
         handleShowAll(e) {
-            let forTag = this.getAllChildrenComponents().filter(k => k instanceof JURL.ForTag)[0]
+            let forTag = this.$("j-for")
             let cards = forTag.getAllChildrenComponents()
 
             for (let c of cards) {
@@ -170,5 +173,5 @@
 
     }
 
-    JURL.instance.defineComponentsName(Home, "app-home")
+    App.defineComponentsName(Home, "app-home")
 </script>

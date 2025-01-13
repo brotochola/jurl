@@ -39,8 +39,11 @@
 
 
 
-<script>
-    class Page3 extends JURL.Component {
+<script type="module">
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    import {duplicate} from "../lib/utils.js"
+    class Page3 extends Component {
 
 
         onInit() {
@@ -60,5 +63,5 @@
 
     }
 
-    JURL.instance.defineComponentsName(Page3, "app-page3")
+    App.defineComponentsName(Page3, "app-page3")
 </script>

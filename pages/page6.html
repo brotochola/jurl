@@ -20,7 +20,7 @@
 
     <p j-style="{{makeMeStylish()}}">prueba de j-style</p>
 
-    <h6 j-style="{{{transition:'0.2s all',color:'darkgreen',margin:'10px', fontSize:(10+this.someStupidValue)}}}">prueba
+    <h6 j-style="{{{transition:'0.2s all',color:'darkgreen',margin:'10px', fontSize:(10+this.fontSizeValue)}}}">prueba
         de j-style 2 </h6>
 
     <p j-innerhtml="{{'fontSizeValue: '+this.fontSizeValue}}"></p>
@@ -34,9 +34,12 @@
 
 
 
-<script>
+<script type="module">
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    import { duplicate } from "../lib/utils.js"
 
-    class Page6 extends JURL.Component {
+    class Page6 extends Component {
         fontSizeValue = 5;
 
         blackStyle = {
@@ -83,5 +86,5 @@
 
     }
 
-    JURL.instance.defineComponentsName(Page6, "app-page6")
+    App.defineComponentsName(Page6, "app-page6")
 </script>

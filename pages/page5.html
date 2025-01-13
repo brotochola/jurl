@@ -72,16 +72,20 @@
 
 
     <hr>
-   
-     <j-debug> {{this.state}}</j-debug>
+
+    <j-debug> {{this.state}}</j-debug>
 
 </section>
 
 
 
 <script>
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
     
-    class Page5 extends JURL.Component {
+
+
+    class Page5 extends Component {
 
 
         onInit() {
@@ -110,5 +114,5 @@
 
     }
 
-    JURL.instance.defineComponentsName(Page5, "app-page5")
+    App.defineComponentsName(Page5, "app-page5")
 </script>

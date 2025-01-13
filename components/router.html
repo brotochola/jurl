@@ -10,7 +10,7 @@
   <app-page3 route="/page3"> </app-page3>
   <app-page4 route="/page4"> </app-page4>
   <app-page5 route="/page5"> </app-page5>
-  <app-page6 route="/page6"> </app-page5>
+  <app-page6 route="/page6"> </app-page6>
 
   <character-page route="/character"> </character-page>
 
@@ -19,17 +19,18 @@
 
 
 
-<script>
+<script type="module">
 
+  import App from "../lib/app.js"
+  import RouterComponent from "../lib/routerComponent.js"
 
-
-  class Router extends JURL.RouterComponent {
+  class Router extends RouterComponent {
     onInit() {
 
 
       window.router = this
 
-      JURL.instance.navigate = this.navigate
+      App.instance.navigate = this.navigate
 
 
     }
@@ -39,6 +40,6 @@
 
   }
 
-  JURL.instance.defineComponentsName(Router, "app-router")
+  App.defineComponentsName(Router)
 
 </script>

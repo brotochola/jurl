@@ -40,10 +40,11 @@
 
 
 
-<script>
+<script type="module">
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
 
-
-    class Page2 extends JURL.Component {
+    class Page2 extends Component {
 
         cambiarEstilo(){
             this.style.color="red"
@@ -75,5 +76,5 @@
 
     }
 
-    JURL.instance.defineComponentsName(Page2, "app-page2")
+    App.defineComponentsName(Page2, "app-page2")
 </script>

@@ -14,20 +14,24 @@
 
 
 <script>
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
 
-    class Header extends JURL.Component {
+    class Header extends Component {
         constructor() {
             super();
 
         }
         async gotoPage(num, data) {
 
-            if (await app.loadComponent("pages/page" + num + ".html")) app.navigate('/page' + num, data)
+            if (await App.instance.loadComponent("pages/page" + num + ".html")){
+                App.instance.navigate('/page' + num, data)
+            } 
         }
 
     }
 
 
-    JURL.instance.defineComponentsName(Header, "app-header")
+    App.defineComponentsName(Header)
 
 </script>

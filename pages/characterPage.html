@@ -26,8 +26,12 @@
 
 
 
-<script>
-    class CharacterPage extends JURL.Component {
+<script type="module">
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    import { duplicate } from "../lib/utils.js"
+
+    class CharacterPage extends Component {
 
         onInit() {
             //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
@@ -51,5 +55,5 @@
 
     }
 
-    JURL.instance.defineComponentsName(CharacterPage, "character-page")
+    App.defineComponentsName(CharacterPage, "character-page")
 </script>

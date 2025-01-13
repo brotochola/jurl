@@ -5,7 +5,7 @@
 <head>
     <!-- <base href="/express/jurl/"> -->
 
-
+    <!-- 
     <script src="lib/utils.js"></script>
     <script src="lib/component.js"></script>
 
@@ -15,37 +15,38 @@
     <script src="lib/routerComponent.js"></script>
     <script src="lib/ifTag.js"></script>
     <script src="lib/forTag.js"></script>
-    <script src="lib/debugTag.js"></script>
+    <script src="lib/debugTag.js"></script> -->
     <!-- <script src="d.js"></script> -->
 
-    <script>
-        let app
-        async function start() {
-            app = new JURL.App({ root: document.querySelector("app"), saveLog: true })
+    <script type="module">
 
-            await app.loadManyComponents([
-                "pages/home.html", //this page is here because we need it preloaded
-                "components/card.html",
-                "components/tooltip.html",
-                "components/image_compo.html",
-                "components/router.html",
-                "components/header.html",
-                "components/episodeData.html",
-            ])
+        import App from "./lib/app.js";
 
+        let app = new App({ root: document.querySelector("app"), saveLog: true })
 
-
-
-            app.init()
+        await app.loadManyComponents([
+            "pages/home.html", //this page is here because we need it preloaded
+            "components/card.html",
+            // "components/tooltip.html",
+            "components/image_compo.html",
+            "components/router.html",
+            "components/header.html",
+            // "components/episodeData.html",
+        ])
 
 
-        }
+        window.app=app
+
+        app.init()
+
+
+        // }
 
 
     </script>
 </head>
 
-<body onload="start()">
+<body>
 
     <app>
         <app-header></app-header>
@@ -53,7 +54,7 @@
         <app-router></app-router>
 
 
-    
+
     </app>
 
 

@@ -39,7 +39,8 @@
 
     <p j-innerhtml="{{tagName}}"></p>
 
-    <p j-innerhtml="{{uid}}" j-style="{{{ opacity: this.state.sliderValue / 100, color: 'red', fontWeight: 'bold', fontSize: this.state.sliderValue + 'px', transform: 'rotate(' + (-10 + this.state.sliderValue / 5) + 'deg)' }}}">
+    <p j-innerhtml="{{uid}}"
+        j-style="{{{ opacity: this.state.sliderValue / 100, color: 'red', fontWeight: 'bold', fontSize: this.state.sliderValue + 'px', transform: 'rotate(' + (-10 + this.state.sliderValue / 5) + 'deg)' }}}">
     </p>
 
     <p j-innerhtml="{{state.sliderValue}}"></p>
@@ -62,8 +63,11 @@
 
 
 
-<script>
-    class Page4 extends JURL.Component {
+<script type="module">
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    import { duplicate } from "../lib/utils.js"
+    class Page4 extends Component {
 
         // makeStyleForP() {
         //     return { opacity: this.state.sliderValue / 100, color: 'red', fontWeight: 'bold', fontSize: this.state.sliderValue + 'px', transform: 'rotate(' + (-10 + this.state.sliderValue / 5) + 'deg)' }
@@ -107,5 +111,5 @@
 
     }
 
-    JURL.instance.defineComponentsName(Page4, "app-page4")
+    App.defineComponentsName(Page4, "app-page4")
 </script>

@@ -13,17 +13,14 @@
 
 
 <script>
-    class Image_compo extends JURL.Component {
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    class Image_compo extends Component {
         constructor() {
             super()
 
-
-
         }
         onInit() {
-
-            // console.log(this.state.src)
-            // this.$("img").src = this.state.src
 
         }
 
@@ -33,6 +30,5 @@
         }
 
     }
-    // customElements.define("app-image-compo", Image_compo)
-    JURL.instance.defineComponentsName(Image_compo)
+    App.defineComponentsName(Image_compo)
 </script>

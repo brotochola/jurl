@@ -6,7 +6,7 @@
         font-weight: bold;
     }
 
-    componente1 {
+    card {
         position: relative;
         display: inline-block;
         width: 150px;
@@ -30,7 +30,7 @@
 </style>
 
 
-<componente1>
+<card>
 
 
     <p id="pep"> </p>
@@ -46,21 +46,25 @@
 
 
 
-</componente1>
+</card>
 
 
 
-<script>
+<script type="module">
 
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    import {randomColor} from "../lib/utils.js"
 
-
-    class Card extends JURL.Component {
+    class Card extends Component {
         setText1InParent(e) {
             this.state.settext1(e.target.value)
         }
 
         async gotoChar() {
-            if (await app.loadComponent("pages/characterPage.html")) app.navigate('/character', this.item)
+            if (await App.instance.loadComponent("pages/characterPage.html")){
+                 App.instance.navigate('/character', this.item)
+            }
 
 
 
@@ -111,5 +115,5 @@
 
     }
 
-    JURL.instance.defineComponentsName(Card, "app-card")
+    App.defineComponentsName(Card)
 </script>
