@@ -37,7 +37,8 @@
     <div id="cont">
 
         <j-for arr="{{state.cards.results}}" text1="{{state.text1}}" setText1="{{settext1}}">
-            <app-card cards="{{state.arr}}" text1="{{state.text1}}" setText1="{{state.settext1}}"></app-card>
+            <!-- THE STATE INSIDE OF THE ELEMENT TO BE DUPLICATED, MEANS THE STATE OF THE FOR COMPONENT -->
+            <app-card  text1="{{state.text1}}" setText1="{{state.settext1}}"></app-card>
         </j-for>
 
 

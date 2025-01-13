@@ -16,7 +16,7 @@
 
 
 
-    <li j-onclick="{{showMoreData}}"> <span j-innerHTML="{{state.episodedata.name}}">loading</span>
+    <li j-onclick="{{showMoreData}}"> <span j-innerHTML="{{this.state.episodedata.name}}">loading</span>
         <j-if condition="{{state.showMore}}">
 
 
@@ -60,16 +60,12 @@
 
 
 
-        onChange(e) {
+        async onChange(e) {
 
 
             this.url = this.getState("episodeurl")
             if (this.url && !this.getState("episodedata")) {
-                getDataFromAPI(this.url).then(e => {
-                    console.log(e)
-                    this.setState("episodedata", e)
-                })
-
+                this.setState("episodedata", await getDataFromAPI(this.url))
             }
 
         }

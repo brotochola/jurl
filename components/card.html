@@ -35,13 +35,13 @@
 
     <p id="pep"> </p>
 
-    <p class="title colorChange" j-innerhtml="{{state.title}}"></p>
+    <p class="title colorChange" j-innerhtml="{{this.state.item.name}}"></p>
     <p class="dynamicText" j-innerhtml="{{state.text1}}"></p>
     <button j-onclick="{{handleOnClickHide}}">hide</button>
     <p class="small" j-innerhtml="{{uid}}"></p>
     <button j-onclick="{{onClickButton}}">change color</button>
     <app-tooltip></app-tooltip>
-    <app-image-compo src="{{state.imgUrl}}" j-onclick="{{gotoChar}}"></app-image-compo>
+    <app-image-compo src="{{ state.item.image}}" j-onclick="{{gotoChar}}"></app-image-compo>
     <input j-oninput="{{setText1InParent}}" j-value="{{state.text1}}">
 
 
@@ -54,7 +54,7 @@
 
     import Component from "../lib/component.js"
     import App from "../lib/app.js"
-    import {randomColor} from "../lib/utils.js"
+    import { randomColor } from "../lib/utils.js"
 
     class Card extends Component {
         setText1InParent(e) {
@@ -62,8 +62,8 @@
         }
 
         async gotoChar() {
-            if (await App.instance.loadComponent("pages/characterPage.html")){
-                 App.instance.navigate('/character', this.item)
+            if (await App.instance.loadComponent("pages/characterPage.html")) {
+                App.instance.navigate('/character', this.state.item)
             }
 
 
@@ -71,15 +71,15 @@
         }
 
         onInit() {
-            // console.log("#on init", this.uid, this.getState("cards"), this.getState("i"))
+            // console.log("#on init", this.uid, this.getState("cards"), this.getState("i"), this.state.item.name)
 
-            this.item = (this.getState("cards") || [])[this.getState("i")]
+            // this.item = (this.getState("cards") || [])[this.getState("i")]
             // this.$(".title").innerHTML = this.item.name
 
-            if (this.item) {
-                this.setState("title", this.item.name)
-                this.setState("imgUrl", this.item.image)
-            }
+            // if (this.item) {
+            //     this.setState("title", this.state.item.name)
+            //     this.setState("imgUrl", this.state.item.image)
+            // }
 
             window.cardC = this
 
