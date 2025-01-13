@@ -17,12 +17,14 @@
 
 
     <li j-onclick="{{showMoreData}}"> <span j-innerHTML="{{state.episodedata.name}}">loading</span>
-        <j-if condition="{{state.showmore}}">
+        <j-if condition="{{state.showMore}}">
 
-            <p>
-                <span j-innerHTML="{{state.episodedata.air_date}}"></span>
-                <span j-innerHTML="{{state.episodedata.episode}}"></span>
-            </p>
+
+            <hr>
+            <p j-innerHTML="{{state.episodedata.air_date}}" />
+            <p j-innerHTML="{{state.episodedata.episode}}" />
+            <hr>
+
 
 
         </j-if>
@@ -35,14 +37,19 @@
 
 
 <script>
-    class EpisodeItem extends JURL.Component {
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    import { getDataFromAPI } from "../lib/utils.js"
+
+    class EpisodeItem extends Component {
 
         showMoreData() {
-
+            console.log("#show more data")
             this.setState("showMore", !this.getState("showMore"))
         }
 
         onInit() {
+            console.log("#init episode item")
             //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
             // console.log("#on init character page", this.getState("routerdata"))
             this.onChange()
@@ -59,6 +66,7 @@
             this.url = this.getState("episodeurl")
             if (this.url && !this.getState("episodedata")) {
                 getDataFromAPI(this.url).then(e => {
+                    console.log(e)
                     this.setState("episodedata", e)
                 })
 
@@ -72,5 +80,5 @@
 
     }
 
-    App.defineComponentsName(EpisodeItem, "episode-item")
+    // App.defineComponentsName(EpisodeItem, "episode-item")
 </script>

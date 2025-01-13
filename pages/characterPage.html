@@ -19,7 +19,7 @@
 
     <p>Episodes:</p>
     <j-for arr="{{state.routerData.episode}}">
-        <episode-item episodeurl="{{state.arr[i]}}"></episode-item>
+        <app-episode-item episodeurl="{{state.arr[i]}}"></app-episode-item>
     </j-for>
 
 </page>
@@ -55,5 +55,5 @@
 
     }
 
-    App.defineComponentsName(CharacterPage, "character-page")
+    // App.defineComponentsName(CharacterPage, "character-page")
 </script>
