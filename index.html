@@ -3,20 +3,6 @@
 
 
 <head>
-    <!-- <base href="/express/jurl/"> -->
-
-    <!-- 
-    <script src="lib/utils.js"></script>
-    <script src="lib/component.js"></script>
-
-    <script src="lib/app.js"></script>
-
-
-    <script src="lib/routerComponent.js"></script>
-    <script src="lib/ifTag.js"></script>
-    <script src="lib/forTag.js"></script>
-    <script src="lib/debugTag.js"></script> -->
-    <!-- <script src="d.js"></script> -->
 
     <script type="module">
 
@@ -24,10 +10,12 @@
 
         let app = new App({ root: document.querySelector("app"), saveLog: true })
 
+
+
         await app.loadManyComponents([
-            "pages/home.html", //this page is here because we need it preloaded
+            "pages/home.html", //this page is here because we need it preloaded            
             "components/card.html",
-            // "components/tooltip.html",
+            "components/tooltip.html",
             "components/image_compo.html",
             "components/router.html",
             "components/header.html",
@@ -35,7 +23,7 @@
         ])
 
 
-        window.app=app
+        window.app = app
 
         app.init()
 

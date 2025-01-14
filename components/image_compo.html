@@ -3,12 +3,16 @@
         width: 100px;
         height: 100px;
         object-fit: cover;
+        transition: all 0.5s;
+        opacity: 0;
 
     }
 </style>
 
+<span>
 
-<img>
+    <img j-onload="{{imageReady}}" j-src="{{state.src}}" j-style="{{{opacity: this.state.ready?1:0}}}" />
+</span>
 
 
 
@@ -16,17 +20,25 @@
     import Component from "../lib/component.js"
     import App from "../lib/app.js"
     class ImageCompo extends Component {
-        constructor() {
-            super()
+
+        imageReady() {
+
+
+            this.setState("ready", true)
+
 
         }
         onInit() {
             this.onChange()
         }
 
-        onChange(e) {
-            
-            this.$("img").src = this.state.src
+        onChange(changes) {
+            if (changes && changes.src) {
+                //IF THE STATE THAT CHANGED IS THE SRC STATE
+                this.setState("ready", false)
+            }
+
+
 
         }
 

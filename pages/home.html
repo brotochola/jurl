@@ -38,13 +38,13 @@
 
         <j-for arr="{{state.cards.results}}" text1="{{state.text1}}" setText1="{{settext1}}">
             <!-- THE STATE INSIDE OF THE ELEMENT TO BE DUPLICATED, MEANS THE STATE OF THE FOR COMPONENT -->
-            <app-card  text1="{{state.text1}}" setText1="{{state.settext1}}"></app-card>
+            <app-card text1="{{state.text1}}" setText1="{{state.settext1}}"></app-card>
         </j-for>
 
 
     </div>
 
-    <!-- <pre j-innerHTML="{{JSON.stringify(this.state,null,2)}}"></pre> -->
+
     <!-- <j-debug> {{this.state}}</j-debug> -->
 
 </home>
@@ -54,23 +54,19 @@
 <script type="module">
     import Component from "../lib/component.js"
     import App from "../lib/app.js"
-    import { getDataFromAPI } from "../lib/utils.js"
+    import { getDataFromAPI, randomColor } from "../lib/utils.js"
     class Home extends Component {
 
         settext1(t) {
             this.setState("text1", t)
         }
         onInit() {
-
-            window.home = this
-
+            window.home = this //debug
             this.setState("dynamicText", "this text is being generated dynamically, with data binding")
             this.setState("varofcompo2", "holissss")
-
             this.setState("text1", "")
-
             this.loadPageOfResults("https://rickandmortyapi.com/api/character")
-            window.mainC = this
+
         }
         handleShowAll(e) {
             let forTag = this.$("j-for")
@@ -87,7 +83,6 @@
             }
         }
         onClickNext(e) {
-            // console.log(e, this.state.cards, this.getState("cards"))
             let next = (this.getState("cards") || {}).info.next
             if (next) {
                 this.loadPageOfResults(next)
@@ -95,84 +90,42 @@
         }
 
         handleSetRandomColor(e) {
-
             this.setCSSVariable("color-of-tooltip", randomColor())
-
         }
 
 
         handleInputOnChange(e) {
-            // console.log(e.target)
             this.setState("text1", e.target.value)
         }
+
         async loadPageOfResults(url) {
-            // console.log("#### load page", url)
             let cards = await getDataFromAPI(url)
-            // console.log("response", cards)
-            // this.cards = cards
             this.setState("cards", cards)
-            // console.log(this.cards.info)
-
-
-
         }
 
-
-
-        // async createCards() {
-        //     // console.log("CREATE CARDS")
-
-
-        //     if ((this.$("#cont app-card") || []).length > 0) {
-        //         this.update()
-        //         return
-        //     }
-
-        //     this.$("#cont").innerHTML = ""
-        //     for (let i = 0; i < ((this.getState("cards") || {}).results || []).length; i++) {
-
-        //         // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr(item) + "'/>")
-        //         let newCompo1 = Card.create({ text1: "{{text1}}", text2: "{{text2}}", i: i, cards: "{{cards.results}}" })
-
-        //         this.$("#cont").appendChild(newCompo1)
-        //     }
-
-
-        // }
-
         handleClick(e) {
-            // let newCompo1 = Card.create({ text: "{{text1}}", text2: "{{text2}}", item: {} })
-            // // let newCompo1 = app.createComponent("<app-componente1 text1='{{text1}}' text2='{{text2}}' item='" + encodeAttr({}) + "'/>")
-            // this.$("#cont").appendChild(newCompo1)
             let newCharacter = { "id": 14, "name": "Facundo Saiegh", "status": "Alive", "species": "Human", "type": "", "gender": "Male", "origin": { "name": "Earth (C-137)", "url": "https://rickandmortyapi.com/api/location/1" }, "location": { "name": "Citadel of Ricks", "url": "https://rickandmortyapi.com/api/location/3" }, "image": "https://rickandmortyapi.com/api/character/avatar/1.jpeg" }
             this.setState("cards", { ...this.getState("cards"), results: [...this.getState("cards").results, newCharacter] })
-
         }
         handleClickDebug(e) {
             console.log("on click j-event")
-            // console.log("$$$$ handle click debug", this, e, e.target, e.currentTarget)
         }
         handleonMouseOverDebug(e) {
             console.log("on mouse over j-event")
-            // console.log("$$$$ mouse over debug", this, e, e.target)
         }
 
 
         onChange(e) {
-
-            // console.log(" MAIN COMPONENT #ON CHANGE", e)
-            // debugger
             if (!this.isEnabled()) return
             if (!((this.getState("cards") || {}).info || {}).next) this.$(".next").style.display = "none"
             else this.$(".next").style.display = "block"
             if (!((this.getState("cards") || {}).info || {}).prev) this.$(".prev").style.display = "none"
             else this.$(".prev").style.display = "block"
 
-            // this.createCards()
         }
 
 
     }
 
-    // App.defineComponentsName(Home)
+
 </script>

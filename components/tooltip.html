@@ -19,28 +19,12 @@
 
 
 
-<script>
-    class Tooltip extends JURL.Component {
-        constructor() {
-            super()
-            // this.$("button").onclick = e => this.onClickButton(e)
-
-
-            // this.color = this.state["tooltip-color"]
-
-        }
-        // onInit() {
-        //     // console.log("compo 1 on init", this.uid)
-        // }
-
-
-        onChange(e) {
-            // console.log("componente 1 cambio", e)
-            // console.log(this.state)
-            // if (this.state.randomvar) this.$("button").innerHTML = this.state.randomvar
-        }
+<script type="module">
+    import Component from "../lib/component.js"
+    import App from "../lib/app.js"
+    class Tooltip extends Component {
 
     }
-    // customElements.define("app-tooltip", Tooltip)
-    App.defineComponentsName(Tooltip)
+    // console.log(JURL.instance)
+
 </script>

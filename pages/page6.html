@@ -28,6 +28,7 @@
     <test j-inner-text="{{(()=>{console.log('updating test element'); return Math.random();})()}}"
         j-class-name="{{'blabla'+this.state.color}}">11</test>
     <hr>
+    
     <j-debug> {{this.state}}</j-debug>
 
 </section>
@@ -54,6 +55,7 @@
             transform: "rotate(-1deg)",
             transition: "all 0.5s"
         }
+
 
         makeMeStylish() {
             this.fontSizeValue++

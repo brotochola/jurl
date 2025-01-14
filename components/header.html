@@ -1,10 +1,10 @@
 <header style="height:50px">
-    <button onclick="app.navigate('/')">HOME </button>
-    <button j-onclick="{{()=>this.gotoPage(2,{dummy:123})}}">"if" example</button>
-    <button j-onclick="{{()=>this.gotoPage(3,{dummy:123})}}">"for" example</button>
-    <button j-onclick="{{()=>this.gotoPage(4)}}">slider and dynamic style</button>
-    <button j-onclick="{{()=>this.gotoPage(5)}}">examples of data binding</button>
-    <button j-onclick="{{()=>this.gotoPage(6)}}">J-class</button>
+    <button j-onclick="{{()=>this.gotoPage('home')}}">HOME </button>
+    <button j-onclick="{{()=>this.gotoPage('page2',{dummy:123})}}">"if" example</button>
+    <button j-onclick="{{()=>this.gotoPage('page3',{dummy:123})}}">"for" example</button>
+    <button j-onclick="{{()=>this.gotoPage('page4')}}">slider and dynamic style</button>
+    <button j-onclick="{{()=>this.gotoPage('page5')}}">examples of data binding</button>
+    <button j-onclick="{{()=>this.gotoPage('page6')}}">J-class</button>
 
     <button onclick="app.navigate('/wrongroute')">wrong route </button>
     <hr>
@@ -24,14 +24,14 @@
         }
         async gotoPage(num, data) {
 
-            if (await App.instance.loadComponent("pages/page" + num + ".html")){
-                App.instance.navigate('/page' + num, data)
-            } 
+            if (await App.instance.loadComponent("pages/" + num + ".html")) {
+                App.instance.navigate('/' + num, data)
+            }
         }
 
     }
 
 
-    // App.defineComponentsName(Header)
+
 
 </script>
