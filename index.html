@@ -32,6 +32,56 @@
 
 
     </script>
+
+    <!-- <script src="lib/app.js" type="module">    </script> -->
+
+    <script >
+        //THIS IS NOT A MODULE AS YOU CAN SEE,
+        //JURL CAN ALSO BE USED WITHOUT MODULES
+        //AFTER YOU IMPORT THE APP MODULE, A GLOBAL OBJECT IS CREATED
+        //window.JURL
+        async function isJURLReady() {
+            console.log("#is jurl ready");
+            let promise = new Promise((resolve, reject) => {
+            if (!(window.JURL || {}).App) {
+                setTimeout(async () => {
+                await isJURLReady();
+                resolve(true);
+                }, 10);
+            } else {
+                resolve(true);
+            }
+            });
+
+            return promise;
+        }
+
+        (async () => {
+
+            await isJURLReady()
+            let app = new window.JURL.App({ root: document.querySelector("app"), saveLog: true })
+
+            await app.loadManyComponents([
+                "pages/home.html", //this page is here because we need it preloaded            
+                "components/card.html",
+                "components/tooltip.html",
+                "components/image_compo.html",
+                "components/router.html",
+                "components/header.html",
+                "components/episodeData.html",
+            ])
+
+
+            window.app = app;
+            app.init()
+
+
+
+
+        })()
+
+
+    </script>
 </head>
 
 <body>

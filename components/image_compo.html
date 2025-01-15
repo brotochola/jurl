@@ -11,7 +11,7 @@
 
 <span>
 
-    <img j-onload="{{imageReady}}" j-src="{{state.src}}" j-style="{{{opacity: this.state.ready?1:0}}}" />
+    <img j-onload="{{imageReady}}" j-src="{{state.src || ''}}" j-style="{{{opacity: this.state.ready?1:0}}}" />
 </span>
 
 
