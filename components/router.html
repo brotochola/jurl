@@ -20,26 +20,27 @@
 
 
 <script type="module">
-
   import App from "../lib/app.js"
   import RouterComponent from "../lib/routerComponent.js"
 
   class Router extends RouterComponent {
-    onInit() {
-
-
-      window.router = this
-
-      App.instance.navigate = this.navigate
-
-
+    constructor() {
+      super();
     }
 
+    async onInit() {
+      await App.instance.loadComponent("pages/home.html")
+      App.instance.navigate("/")
+    }
 
+    onChange(e) {
+      console.log("router change", e)
+    }
 
-
+    onDestroy() {
+      console.log("router destroy")
+    }
   }
 
-  // App.defineComponAGE2entsName(Router)
 
 </script>

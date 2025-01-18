@@ -1,23 +1,47 @@
 <style>
-    #cont {
-        gap: 10px;
+    j-for {
+        /* gap: 3px; */
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
         align-content: space-around;
         justify-content: space-between;
         align-items: center;
+        padding:10px;
+        
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007BFF;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    button:active {
+        background-color: #004494;
+        transform: translateY(0);
     }
 </style>
 
 <home>
-    <p>This is the main component, which loads data from an external API, and generates dynamically as many Card
+    <!-- <p>This is the main component, which loads data from an external API, and generates dynamically as many Card
         components as needed. Each of these card component has an image component and a circle component. The card
         component takes the url attribute and passes it to tthe image component, which renders it. On the other hand,
         the main component sets an own color css variable, which is used by the circle component to change its color.
 
         By the way,
-        <span j-innerhtml="dynamicText"></span>
+        <span j-innerhtml="dynamicText"></span> -->
     </p>
     <button class="boton1" j-onclick="{{handleClick}}"> add</button>
     <button class="boton12" j-onclick="{{handleClickDebug}}" j-onmouseover="{{handleonMouseOverDebug}}"> this button has
@@ -99,7 +123,7 @@
         }
 
         async loadPageOfResults(url) {
-            let cards = await getDataFromAPI(url)
+            const cards = await getDataFromAPI(url)
             this.setState("cards", cards)
         }
 

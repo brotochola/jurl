@@ -28,7 +28,6 @@
 
 <script type="module">
     import Component from "../lib/component.js"
-    import App from "../lib/app.js"
     import { duplicate } from "../lib/utils.js"
 
     class CharacterPage extends Component {
@@ -36,6 +35,15 @@
         onInit() {
             //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
             console.log("#on init character page", this.getState("routerdata"))
+            this.onEnable()
+
+        }
+
+        onEnable() {
+
+            this.$("j-for").$("app-episode-item").forEach(element => {
+                element.setState("showMore", false)
+            });
 
         }
 
@@ -45,7 +53,6 @@
 
         onChange(e) {
 
-            this.onInit()
 
         }
 
@@ -55,5 +62,4 @@
 
     }
 
-    // App.defineComponentsName(CharacterPage, "character-page")
 </script>

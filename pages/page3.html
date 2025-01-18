@@ -11,7 +11,7 @@
 
 <section>
 
-    
+
     <h1 *ngFor="{{array}}">page 3</h1>
 
 
@@ -41,11 +41,8 @@
 
 <script type="module">
     import Component from "../lib/component.js"
-    import App from "../lib/app.js"
-    import {duplicate} from "../lib/utils.js"
+    import { duplicate } from "../lib/utils.js"
     class Page3 extends Component {
-
-
         onInit() {
             window.page3 = this
             let arr1 = [1, 2, 3, 4, 5, 2, 4, 42, 4, 24, 6, 52, 42, 52, 25, 26]
@@ -53,15 +50,13 @@
             for (let i = 0; i < 4; i++) arr.push(duplicate(i % 2 == 0 ? arr1 : arr1.reverse()))
 
             this.setState("testarr", arr)
-            this.setState("theclass","someClass")
+            this.setState("theclass", "someClass")
         }
 
         onChange(e) {
-
         }
 
 
     }
 
-    // App.defineComponentsName(Page3, "app-page3")
 </script>
