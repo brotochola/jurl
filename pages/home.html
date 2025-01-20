@@ -7,8 +7,8 @@
         align-content: space-around;
         justify-content: space-between;
         align-items: center;
-        padding:10px;
-        
+        padding: 10px;
+
     }
 
     button {
@@ -43,7 +43,7 @@
         By the way,
         <span j-innerhtml="dynamicText"></span> -->
     </p>
-    
+
     <button class="boton1" j-onclick="{{handleClick}}"> add</button>
     <button class="boton12" j-onclick="{{handleClickDebug}}" j-onmouseover="{{handleonMouseOverDebug}}"> this button has
         a
@@ -82,9 +82,7 @@
     import { getDataFromAPI, randomColor } from "../lib/utils.js"
     class Home extends Component {
 
-        pija(){
-            console.log("pija")
-        }
+
         settext1(t) {
             this.setState("text1", t)
         }

@@ -15,14 +15,14 @@
 <!-- <episode> -->
 
 
-<j-if condition="{{state.episodedata}}">
+<j-if condition="{{state.episodedata.name}}">
     <li j-onclick="{{showMoreData}}">
-        <span j-innerHTML="{{this.state.episodedata.name}}"></span>
+        <span j-innerHTML="{{this.state.episodedata.name||''}}"></span>
         <j-if condition="{{state.showMore}}">
 
             <hr>
-            <p j-innerHTML="{{state.episodedata.air_date}}" />
-            <p j-innerHTML="{{state.episodedata.episode}}" />
+            <p j-innerHTML="{{state.episodedata.air_date||''}}" />
+            <p j-innerHTML="{{state.episodedata.episode||''}}" />
             <hr>
 
 
@@ -50,11 +50,12 @@
         }
 
         onInit() {
-            // console.log("#init")
+            
+            // console.log("#init", this.state)
             // console.trace("#on init")
             //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
             // console.log("#on init character page", this.getState("routerdata"))
-            this.onChange({})
+            this.getEpisodeData(this.state.item)
 
         }
 
@@ -64,16 +65,20 @@
 
 
             if (changes && changes.item) {
+                // console.log("#got item")
                 const url = changes.item.current
-
-                if (url && url != this.getState("currentURL")) {
-                    this.setState("episodedata", await getDataFromAPI(url))
-                    this.setState("currentURL", url)
-                }
+                this.getEpisodeData(url)
             }
 
 
 
+        }
+
+        async getEpisodeData(url) {
+            if (url && url != this.getState("currentURL")) {
+                this.setState("episodedata", await getDataFromAPI(url))
+                this.setState("currentURL", url)
+            }
         }
 
         onDestroy() {

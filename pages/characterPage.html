@@ -28,13 +28,25 @@
 
 <script type="module">
     import Component from "../lib/component.js"
-    import { duplicate } from "../lib/utils.js"
+    import { duplicate, wait } from "../lib/utils.js"
+    import App from "../lib/app.js";
 
     class CharacterPage extends Component {
 
-        onInit() {
+
+
+
+        async onInit() {
+
             // alert(1)
             //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
+
+            await App.instance.loadComponent("components/episodeData.html")
+            
+
+            // debugger
+
+
             console.log("#on init character page", this.getState("routerdata"))
             this.onEnable()
 
@@ -42,12 +54,10 @@
 
         onEnable() {
 
-            let arrOfEpisodeDataItems = this.$("j-for").$("app-episode-item") || []
 
-
-
-            arrOfEpisodeDataItems.forEach(element => {
-                element.setState("showMore", false)
+            let arrOfEpisodeDataItems = this.$("j-for").getAllChildrenComponents()
+            arrOfEpisodeDataItems.forEach(compo => {
+                compo.setState("showMore", false)
             });
 
         }
