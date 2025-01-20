@@ -98,6 +98,9 @@ A Javascript UI framework based on web components (custom elements)
 - TODO:
 - benchmarks with lighthouse
 - findMatchingProperty para pasar de attributos a propiedades
+- <context> tipo react provider y consumer
+- pasar como prop un componente
+- key a los j-for, como en react
 
 
 - COSITAS PA LEER Y AGREGAR A LA DOC DE ESTA LIBRERIA:
