@@ -19,7 +19,7 @@
 
     <p>Episodes:</p>
     <j-for arr="{{state.routerData.episode}}">
-        <app-episode-item episodeurl="{{state.arr[i]}}"></app-episode-item>
+        <app-episode-item />
     </j-for>
 
 </page>
@@ -33,6 +33,7 @@
     class CharacterPage extends Component {
 
         onInit() {
+            // alert(1)
             //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
             console.log("#on init character page", this.getState("routerdata"))
             this.onEnable()
@@ -41,7 +42,11 @@
 
         onEnable() {
 
-            this.$("j-for").$("app-episode-item").forEach(element => {
+            let arrOfEpisodeDataItems = this.$("j-for").$("app-episode-item") || []
+
+
+
+            arrOfEpisodeDataItems.forEach(element => {
                 element.setState("showMore", false)
             });
 

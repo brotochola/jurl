@@ -12,13 +12,13 @@
 </style>
 
 
-<episode>
+<!-- <episode> -->
 
 
-
-    <li j-onclick="{{showMoreData}}"> <span j-innerHTML="{{this.state.episodedata.name}}">loading</span>
+<j-if condition="{{state.episodedata}}">
+    <li j-onclick="{{showMoreData}}">
+        <span j-innerHTML="{{this.state.episodedata.name}}"></span>
         <j-if condition="{{state.showMore}}">
-
 
             <hr>
             <p j-innerHTML="{{state.episodedata.air_date}}" />
@@ -30,9 +30,10 @@
         </j-if>
 
     </li>
+</j-if>
 
 
-</episode>
+<!-- </episode> -->
 
 
 
@@ -44,12 +45,13 @@
     class EpisodeItem extends Component {
 
         showMoreData() {
-            console.log("#show more data")
+            // console.log("#show more data")
             this.setState("showMore", !this.getState("showMore"))
         }
 
         onInit() {
-
+            // console.log("#init")
+            // console.trace("#on init")
             //THE ROUTER DATA STATE IS GIVEN BY THE ROUTER
             // console.log("#on init character page", this.getState("routerdata"))
             this.onChange({})
@@ -58,13 +60,19 @@
 
 
 
-        async onChange(e) {
+        async onChange(changes) {
 
 
-            this.url = this.getState("episodeurl")
-            if (this.url && !this.getState("episodedata")) {
-                this.setState("episodedata", await getDataFromAPI(this.url))
+            if (changes && changes.item) {
+                const url = changes.item.current
+
+                if (url && url != this.getState("currentURL")) {
+                    this.setState("episodedata", await getDataFromAPI(url))
+                    this.setState("currentURL", url)
+                }
             }
+
+
 
         }
 

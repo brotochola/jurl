@@ -7,18 +7,20 @@
     }
 
     card {
-        padding:10px;
+        padding: 10px;
         position: relative;
         display: inline-block;
-        width: 250px; /* Ancho definido */
+        width: 250px;
+        /* Ancho definido */
         height: max-content;
         border: 1px solid #ddd;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         overflow: hidden;
-        background-color: #f9f9f9; /* Color de fondo más agradable */
+        background-color: #f9f9f9;
+        /* Color de fondo más agradable */
         transition: transform 0.3s, box-shadow 0.3s;
-        margin:10px;
+        margin: 10px;
     }
 
     card:hover {
@@ -30,7 +32,8 @@
         font-size: 12px;
         color: #666;
         margin: 5px 0;
-        word-wrap: break-word; /* Ajuste automático del texto */
+        word-wrap: break-word;
+        /* Ajuste automático del texto */
     }
 
     img {
@@ -50,7 +53,8 @@
     }
 
     input {
-        width: calc(100% - 30px); /* Ajuste automático del ancho del input */
+        width: calc(100% - 30px);
+        /* Ajuste automático del ancho del input */
         padding: 10px;
         margin: 10px 0;
         border: 1px solid #ccc;
@@ -59,14 +63,17 @@
     }
 
     input:focus {
-        border-color: #007BFF; /* Color de borde más agradable al enfocar */
+        border-color: #007BFF;
+        /* Color de borde más agradable al enfocar */
         outline: none;
         box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
     }
+
     app-image-compo {
         cursor: pointer;
     }
-    .title{
+
+    .title {
         cursor: pointer;
     }
 </style>
@@ -78,10 +85,10 @@
 
     <p id="pep"> </p>
 
-    <p class="title colorChange"  j-onclick="{{gotoChar}}"  j-innerhtml="{{this.state.item.name}}"></p>
+    <p class="title colorChange" j-onclick="{{gotoChar}}" j-innerhtml="{{this.state.item.name}}"></p>
     <p class="dynamicText" j-innerhtml="{{state.text1}}"></p>
     <button j-onclick="{{handleOnClickHide}}">hide</button>
-    <p class="small" j-innerhtml="{{uid}}"></p>
+    <p class="small" j-inner-text="{{uid}}"></p>
     <button j-onclick="{{onClickButton}}">change color</button>
     <app-tooltip></app-tooltip>
     <app-image-compo src="{{ state.item.image}}" j-onclick="{{gotoChar}}"></app-image-compo>
@@ -98,7 +105,7 @@
     import Component from "../lib/component.js"
     import App from "../lib/app.js"
     import { randomColor } from "../lib/utils.js"
-    
+
 
     class Card extends Component {
         setText1InParent(e) {
@@ -109,56 +116,21 @@
             if (await App.instance.loadComponent("pages/characterPage.html")) {
                 App.instance.navigate('/character', this.state.item)
             }
-
-
-
         }
-
         onInit() {
-            
-            // console.log("#on init", this.uid, this.getState("cards"), this.getState("i"), this.state.item.name)
-
-            // this.item = (this.getState("cards") || [])[this.getState("i")]
-            // this.$(".title").innerHTML = this.item.name
-
-            // if (this.item) {
-            //     this.setState("title", this.state.item.name)
-            //     this.setState("imgUrl", this.state.item.image)
-            // }
-
             window.cardC = this
-
-
-
         }
         handleOnClickHide(e) {
             this.disable()
         }
-
-
-
         onClickButton(e) {
             this.setCSSVariable("color", randomColor())
         }
-
-
-
         onChange(e) {
-            // console.log(this.uid, e)
-
-            // if (e.text1) this.$(".dynamicText").innerHTML = this.state.text1
-            // if (e.color) this.$(".colorChange").style.color = this.state.color
-
-            this.onInit()
-
-
         }
-
         onDestroy() {
-            // console.log("chau", this.uid)
         }
 
     }
 
-    // App.defineComponentsName(Card)
 </script>

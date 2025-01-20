@@ -1,4 +1,5 @@
 # jurl / NoBSjs
+/dʒɜrl/
 
 A Javascript UI framework based on web components (custom elements)
 
@@ -92,3 +93,18 @@ A Javascript UI framework based on web components (custom elements)
     - It's a way of passing variables from the markup to whatever property of the element
 
 ---
+
+
+- TODO:
+- benchmarks with lighthouse
+- findMatchingProperty para pasar de attributos a propiedades
+
+
+- COSITAS PA LEER Y AGREGAR A LA DOC DE ESTA LIBRERIA:
+  - https://www.npmjs.com/package/morphdom/v/1.1.3
+
+- MUESTRAS DE LIBRERIAS Y FRAMEWORK DE FRONTEND QUE INVENTAN UNA SINTAXIS LOCA:
+  - https://purescript-halogen.github.io/purescript-halogen/guide/
+
+- NOSOTROS HACEMOS LO MISMO PERO MAS SIMPLE: 'trully reactive':
+- https://www.youtube.com/watch?v=hw3Bx5vxKl0&t=42s&ab_channel=Fireship
