@@ -1,4 +1,5 @@
 # jurl / NoBSjs
+
 /dʒɜrl/
 
 A Javascript UI framework based on web components (custom elements)
@@ -94,19 +95,37 @@ A Javascript UI framework based on web components (custom elements)
 
 ---
 
-
 - TODO:
 - benchmarks with lighthouse
 - findMatchingProperty para pasar de attributos a propiedades
-- <context> tipo react provider y consumer
-- pasar como prop un componente
 - key a los j-for, como en react
 
+- CONTEXT:
+  - `<context-writer context-name="user" some-var="{{3.14159+1}}"/>`
+  - `<context-reader context-name="user" some-var="4.14159" > <app-some-component /> </context-reader>`
+  - when some state of the writer changes, it searches the readers linked to it, by the context-name, and updates the readers' state, triggering the update of the children components.
+  -All writers and readers
+  - JURL.Context class: 
+    - has a Set of instances
+    - has a Set of Proxys
+    - Context.setValue(contextName, key, value)
+      - sets the state of the context-reader component, that will trigger the update in its children      
+    - connectedCallback: add to set of instances
+
+
+
+
+
+
+
+---------------------------------
 
 - COSITAS PA LEER Y AGREGAR A LA DOC DE ESTA LIBRERIA:
+
   - https://www.npmjs.com/package/morphdom/v/1.1.3
 
 - MUESTRAS DE LIBRERIAS Y FRAMEWORK DE FRONTEND QUE INVENTAN UNA SINTAXIS LOCA:
+
   - https://purescript-halogen.github.io/purescript-halogen/guide/
 
 - NOSOTROS HACEMOS LO MISMO PERO MAS SIMPLE: 'trully reactive':

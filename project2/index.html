@@ -1,0 +1,50 @@
+<html>
+
+
+
+<head>
+
+    <script type="module">
+
+        import {App} from "./lib/app.js";
+        
+
+        let app = new App({ root: document.querySelector("app"), saveLog: true })
+
+
+
+        await app.loadManyComponents([
+            "starterComponent.html", 
+            "childComponent.html", 
+            "littleChildComponent.html", 
+        ])
+
+
+        window.app = app
+
+        app.init()
+
+
+
+
+
+    </script>
+
+</head>
+
+<body>
+
+    <app>
+
+        
+
+        <app-starter-component />
+
+
+
+    </app>
+
+
+</body>
+
+</html>

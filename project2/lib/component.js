@@ -519,6 +519,28 @@ export default class Component extends HTMLElement {
     return this.getState("enabled");
   }
 
+  copyStylesFromParent() {
+    let parent = this.getParentComponent();
+    let style, cloned;
+
+    if (parent) {
+      let doIHaveThisStyleAlready = this.$(
+        "style[belongs-to-parent='" + parent.uid + "'"
+      );
+      if (doIHaveThisStyleAlready) {
+        return;
+      }
+      style = parent.$("style");
+
+      if (style && (style.innerHTML || "").length > 3) {
+        cloned = style.cloneNode(true);
+        cloned.setAttribute("belongs-to-parent", parent.uid);
+        cloned.removeAttribute("original-style");
+        this.shadowRoot.appendChild(cloned);
+      }
+    }
+  }
+
   static create(attrs) {
     // console.log(this.name);
     let elem = App.instance.createComponent(

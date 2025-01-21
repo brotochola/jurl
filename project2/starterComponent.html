@@ -1,0 +1,34 @@
+<style>
+    b {
+        color: red;
+    }
+</style>
+
+
+<span>
+
+    <b>starterComponent</b>
+    <span j-innertext="{{state.age}}"></span>
+    <j-context-writer context-name="user" age="{{state.age}}"> </j-context-writer>
+    <button j-onclick="{{changeAge}}">change age</button>
+    <app-child-component />
+
+
+
+
+</span>
+
+<script>
+    import Component from "./lib/component.js"
+
+
+    class StarterComponent extends Component {
+        onInit() {
+            this.setState("age", 1)
+        }
+        changeAge() {
+            this.setState("age", this.state.age + 1)
+
+        }
+    }
+</script>

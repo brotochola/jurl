@@ -3,10 +3,12 @@
 
 
 <head>
-
+    
     <script type="module">
 
-        import App from "./lib/app.js";
+        import {App} from "../lib/app.js";
+
+        
 
         let app = new App({ root: document.querySelector("app"), saveLog: true })
 
@@ -89,7 +91,7 @@
     <app>
         <app-header></app-header>
 
-        <app-router></app-router>
+        <app-router base-url=""></app-router>
 
 
 

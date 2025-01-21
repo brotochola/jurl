@@ -1,6 +1,6 @@
 import Component from "./component.js";
 import { duplicate } from "./utils.js";
-import {App} from "./app.js";
+import { App } from "./app.js";
 export default class JFor extends Component {
   // static tagName = "j-for";
 
@@ -19,27 +19,7 @@ export default class JFor extends Component {
 
     this.innerHTML = "";
   }
-  copyStylesFromParent() {
-    let parent = this.getParentComponent();
-    let style, cloned;
 
-    if (parent) {
-      let doIHaveThisStyleAlready = this.$(
-        "style[belongs-to-parent='" + parent.uid + "'"
-      );
-      if (doIHaveThisStyleAlready) {
-        return;
-      }
-      style = parent.$("style");
-
-      if (style && (style.innerHTML || "").length > 3) {
-        cloned = style.cloneNode(true);
-        cloned.setAttribute("belongs-to-parent", parent.uid);
-        cloned.removeAttribute("original-style");
-        this.shadowRoot.appendChild(cloned);
-      }
-    }
-  }
   onChange(e) {
     if (e.arr) this.executeForFunctionality();
   }
