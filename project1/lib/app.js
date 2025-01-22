@@ -4,6 +4,7 @@ import JIf from "./jif.js";
 import JDebug from "./jdebug.js";
 
 import * as utils from "./utils.js";
+import  { JContextReader, JContextWriter } from "./jcontext.js";
 
 window.JURL = { ...window.JURL, utils };
 
@@ -34,6 +35,8 @@ export class App {
     App.defineComponentsName(JFor, "j-for");
     App.defineComponentsName(JIf, "j-if");
     App.defineComponentsName(JDebug, "j-debug");
+    App.defineComponentsName(JContextWriter, "j-context-writer");
+    App.defineComponentsName(JContextReader, "j-context-reader");
   }
   getTreeOfComponents(simple, showState) {
     return utils.createTree(this.root, simple, showState);

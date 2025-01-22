@@ -1,4 +1,4 @@
-import {App} from "./app.js";
+import { App } from "./app.js";
 import {
   camelToSnake,
   snakeToCamel,
@@ -51,15 +51,15 @@ export default class Component extends HTMLElement {
     this.enable();
     this.updateParsedAttributes();
 
-    if (new.target.name) {
-      // debugger
-    }
+    // if (new.target.name) {
+    //   // debugger
+    // }
   }
 
   enable() {
     if (this.enabled) return;
     //PUT THE ROOT ELEMENT BACK IN THE SHADOWROOT
-    if (this.root) {
+    if (this.root instanceof HTMLElement) {
       this.shadowRoot.appendChild(this.root);
     }
     this.setState("enabled", true);
@@ -210,12 +210,12 @@ export default class Component extends HTMLElement {
 
     // if (!this.root) debugger;
   }
-  passStatesToVars() {
-    let keys = Object.keys(this.state);
-    for (let key of keys) {
-      this[key] = this.state[key];
-    }
-  }
+  // passStatesToVars() {
+  //   let keys = Object.keys(this.state);
+  //   for (let key of keys) {
+  //     this[key] = this.state[key];
+  //   }
+  // }
 
   updateParsedAttributes() {
     // console.log("### update", this.tagName);
@@ -231,6 +231,7 @@ export default class Component extends HTMLElement {
       let camelCaseAttrName = snakeToCamel(k.name);
       let decodedAttr = decodeAttr(k.value);
       let trimmedValue = k.value.trim();
+
       if (hasCurlyBrackets(trimmedValue)) {
         let parent = this.getParentComponent();
         let i = this.getAttribute("i");
@@ -272,8 +273,6 @@ export default class Component extends HTMLElement {
       const i = el.getAttribute("i");
       let jAttrs = getAttributesStartingWith(el, "j-");
 
-   
-
       for (let jAttr of jAttrs) {
         //get the result of the expression in the jAttribute
         let updatedVal = evalInComponent(jAttr.value, this, i);
@@ -283,7 +282,6 @@ export default class Component extends HTMLElement {
 
         const matchingProp = findMatchingProperty(el, nameOfAttr);
 
-     
         if (nameOfAttr.toLowerCase() == "style") {
           //STYLE
           if (updatedVal) {
@@ -318,12 +316,10 @@ export default class Component extends HTMLElement {
     });
   }
   getAllChildrenComponents() {
-    if (!this.root) return [];
-    return Array.from(this.root.querySelectorAll("*")).filter((k) => {
-      return (
-        k instanceof Component
-        // k.parentNode instanceof DocumentFragment
-      );
+    return Array.from(
+      this.shadowRoot.querySelectorAll(":host *:not(template):not(style)")
+    ).filter((k) => {
+      return k instanceof Component;
     });
   }
 

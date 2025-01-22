@@ -17,8 +17,8 @@ export class JContextWriter extends Component {
 
   constructor() {
     super(true);
-
-    // this.root = this.shadowRoot;
+    
+    this.root = this.shadowRoot;
     window.jw = this;
   }
 
@@ -61,10 +61,11 @@ export class JContextReader extends Component {
   constructor() {
     super(true);
     window.jc = this;
-    // this.root=this.shadowRoot
+    this.root=this.shadowRoot
   }
 
   onInit() {
+    console.trace("init reader");
     JContextReader.instances.add(this);
     if (!this.originalContent) {
       this.originalContent = duplicate(this.innerHTML);
@@ -83,20 +84,6 @@ export class JContextReader extends Component {
       this.setState(state, parent.getState(state));
     }
   }
-  passStateToChildrenComponents() {
-    const states = Object.keys(this.state);
-    const children = this.getAllChildrenComponents();
-    console.log(states,children)
-
-    for (let state of states) {
-      if (state == "uid" || state == "enabled") continue;
-
-      children.forEach((compo) => {
-        
-        compo.setState(state, this.getState(state));
-      });
-    }
-  }
 
   onChange(changes) {
     console.log("reader changes", changes);
@@ -105,7 +92,6 @@ export class JContextReader extends Component {
     if (changes.contextName) {
       this.contextName = changes.contextName.current;
     }
-    this.passStateToChildrenComponents();
     this.copyStatesFromParent();
   }
   onDestroy() {

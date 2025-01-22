@@ -1,19 +1,28 @@
 <style></style>
+<child>
 
+    <!-- <j-context-reader context-name="user">
 
-<j-context-reader context-name="user">
+        <i>child compo</i>
 
-    <i>child compo</i>
- 
- </j-context-reader>
+    </j-context-reader> -->
+    <j-context-reader context-name="user">
+        <app-little-child-component some-other-state="348798"></app-little-child-component>
+        <app-little-child-component2 some-other-state="pedo"></app-little-child-component2>
+    </j-context-reader>
 
-<app-little-child-component></app-little-child-component>
-
-
+</child>
 
 <script>
     import Component from "./lib/component.js"
 
 
-    class ChildComponent extends Component { }
+    class ChildComponent extends Component {
+        constructor() {
+            super()
+        }
+        onInit() {
+            // console.log("init child", this.outerHTML)
+        }
+    }
 </script>

@@ -9,9 +9,13 @@
 
     <b>starterComponent</b>
     <span j-innertext="{{state.age}}"></span>
-    <j-context-writer context-name="user" age="{{state.age}}"> </j-context-writer>
+    <j-context-writer context-name="user" age="{{this.state.age}}"> </j-context-writer>
     <button j-onclick="{{changeAge}}">change age</button>
-    <app-child-component />
+    <br>
+    <hr>
+    <br>
+    
+    <app-child-component  some-state="victor Bla"></app-child-component>
 
 
 
@@ -23,8 +27,10 @@
 
 
     class StarterComponent extends Component {
+    
         onInit() {
             this.setState("age", 1)
+            console.log("init starter compo")
         }
         changeAge() {
             this.setState("age", this.state.age + 1)
