@@ -233,11 +233,9 @@ export function findMatchingProperty(element, searchString) {
   return null;
 }
 
-
 export async function wait(milliseconds) {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
-
 
 export function getComponentsNameFromJSClass(elem) {
   try {
@@ -256,7 +254,27 @@ export function getComponentsNameFromJSClass(elem) {
   }
 }
 
-
-export function makeRandomID(){
+export function makeRandomID() {
   return Math.floor(Math.random() * 9999999999999999).toString(24);
+}
+
+
+export function watchElementRemoval(element, onRemoveCallback) {
+  const parent = element.parentNode;
+  if (!parent) {
+    console.warn('The element is not currently attached to a parent.');
+    return;
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if ([...mutation.removedNodes].includes(element)) {
+        onRemoveCallback();
+        observer.disconnect(); // Stop observing after the element is removed
+      }
+    });
+  });
+
+  // Observe the parent for child node changes
+  observer.observe(parent, { childList: true });
 }

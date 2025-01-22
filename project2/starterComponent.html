@@ -9,32 +9,51 @@
 
     <b>starterComponent</b>
     <span j-innertext="{{state.age}}"></span>
-    <j-context-writer context-name="user" age="{{this.state.age}}"> </j-context-writer>
+
     <button j-onclick="{{changeAge}}">change age</button>
     <br>
     <hr>
     <br>
-    
-    <app-child-component  some-state="victor Bla"></app-child-component>
 
+    <app-child-component some-state="victor Bla"></app-child-component>
 
-
+    <!-- <j-context-writer context-name="user" age="{{this.state.age}}"> </j-context-writer>
+    <j-context-writer context-name="shoppingCart" products="{{this.getProductList()}}"> </j-context-writer> -->
 
 </span>
 
 <script>
     import Component from "./lib/component.js"
+    import { Store } from "./lib/store.js"
 
 
     class StarterComponent extends Component {
-    
+        age = 1
         onInit() {
-            this.setState("age", 1)
+            // this.setState("age", 1)
             console.log("init starter compo")
+
+
+            window.starter = this
+        }
+        getProductList() {
+            let arr = []
+            for (let i = 0; i < this.state.age; i++) {
+                arr.push({ id: 123, name: "sugar" })
+            }
+            return arr
+
         }
         changeAge() {
-            this.setState("age", this.state.age + 1)
+            this.age++
+            Store.getStore("user").setValue("age", this.age)
+            // this.setState("age", this.state.age + 1)
+            // this.setCSSVariable("age", this.state.age+1)
 
+
+        }
+        onChange() {
+            // console.log("#starter")
         }
     }
 </script>

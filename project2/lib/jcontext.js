@@ -4,6 +4,7 @@ import { App } from "./app.js";
 
 export class JContextWriter extends Component {
   static instances = new Set();
+  static contexts = {};
 
   getAllInstancesOfReadersWithMyContextName() {
     // let arrOfWriters = Array.from(this.constructor.instances).filter(
@@ -19,7 +20,17 @@ export class JContextWriter extends Component {
     super(true);
 
     // this.root = this.shadowRoot;
+    this.getContextName();
     window.jw = this;
+  }
+
+  getContextName() {
+    this.contextName = this.getAttribute("context-name");
+    if (!this.contextName) {
+      console.warn(
+        "This context reader component doesn't have a context-name attribute"
+      );
+    }
   }
 
   onInit() {
@@ -35,6 +46,17 @@ export class JContextWriter extends Component {
     }
     console.log("writer changes", changes);
     this.triggerUpdateInTheReaders(changes);
+    this.saveNewValuesInContexts(changes);
+  }
+  saveNewValuesInContexts(changes) {
+    const keys = Object.keys(changes);
+    for (let key of keys) {
+      const current = changes[key].current;
+      if (!JContextWriter.contexts[this.contextName]) {
+        JContextWriter.contexts[this.contextName] = {};
+      }
+      JContextWriter.contexts[this.contextName][key] = current;
+    }
   }
 
   triggerUpdateInTheReaders(changes) {
@@ -61,7 +83,17 @@ export class JContextReader extends Component {
   constructor() {
     super(true);
     window.jc = this;
+    this.getContextName();
+
     // this.root=this.shadowRoot
+  }
+  getContextName() {
+    this.contextName = this.getAttribute("context-name");
+    if (!this.contextName) {
+      console.warn(
+        "This context reader component doesn't have a context-name attribute"
+      );
+    }
   }
 
   onInit() {
@@ -77,6 +109,7 @@ export class JContextReader extends Component {
 
   copyStatesFromParent() {
     const parent = this.getParentComponent();
+    
     const states = Object.keys(parent.state);
     for (let state of states) {
       if (state == "uid" || state == "enabled") continue;
@@ -86,13 +119,12 @@ export class JContextReader extends Component {
   passStateToChildrenComponents() {
     const states = Object.keys(this.state);
     const children = this.getAllChildrenComponents();
-    console.log(states,children)
+    console.log(states, children);
 
     for (let state of states) {
       if (state == "uid" || state == "enabled") continue;
 
       children.forEach((compo) => {
-        
         compo.setState(state, this.getState(state));
       });
     }

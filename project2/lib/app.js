@@ -2,14 +2,12 @@ import Component from "../lib/component.js";
 import JFor from "./jfor.js";
 import JIf from "./jif.js";
 import JDebug from "./jdebug.js";
+import {Store} from "./store.js"
 
 import * as utils from "./utils.js";
-import  { JContextReader, JContextWriter } from "./jcontext.js";
+import { JContextReader, JContextWriter } from "./jcontext.js";
 
-window.JURL = { ...window.JURL, utils };
-
-
-
+window.JURL = { ...window.JURL, utils, Store };
 
 export class App {
   instance = null;
@@ -17,6 +15,7 @@ export class App {
   constructor(options) {
     if (App.instance) return App.instance;
     this.log = [];
+    this.allComponentsEverCreated=[]
     Object.assign(this, options);
 
     if (!this.root) {
@@ -64,7 +63,7 @@ export class App {
     this.mainComponent.shadowRoot.innerHTML =
       "<span>" + this.content + "</span>";
     //I NEED TO SET BY HAND, BECAUSE WHEN THE MAIN COMPONENT GETS INSTANCIATED IT DOESN'T HAVE ANY CONTENT
-    this.mainComponent.setRoot(this.mainComponent.shadowRoot.children[0]);
+    this.mainComponent.root = this.mainComponent.shadowRoot.children[0];
     this.root = this.mainComponent;
   }
 
@@ -162,6 +161,7 @@ export class App {
       html: elem.querySelector("body").innerHTML,
       css: style,
       path: url,
+      // elem: elem,
     };
 
     // this.checkIfTheresAnyComponentsToBeInitiallizedAfterLoaded(nameOfHTML);
@@ -239,5 +239,5 @@ export class App {
 }
 
 window.JURL = { ...window.JURL, App };
-const JURL=window.JURL
+const JURL = window.JURL;
 export default JURL;

@@ -6,11 +6,14 @@
         <i>child compo</i>
 
     </j-context-reader> -->
-    <j-context-reader context-name="user">
-        <app-little-child-component some-other-state="348798"></app-little-child-component>
-        <app-little-child-component2 some-other-state="pedo"></app-little-child-component2>
-    </j-context-reader>
+    <!-- <j-context-reader context-name="user">
+        <j-context-reader context-name="shoppingCart"> -->
+            <app-little-child-component some-other-state="348798"></app-little-child-component>
+            <app-little-child-component some-other-state="232323"></app-little-child-component>
 
+            <app-little-child-component2 some-other-state="pedo"></app-little-child-component2>
+        <!-- </j-context-reader>
+    </j-context-reader> -->
 </child>
 
 <script>
@@ -22,7 +25,10 @@
             super()
         }
         onInit() {
-            // console.log("init child", this.outerHTML)
+            console.log("init child")
+        }
+        onChange(){
+            console.log("child change")
         }
     }
 </script>

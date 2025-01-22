@@ -5,7 +5,7 @@
 
 
 
-    <p>little child 2</p>
+    <p>little child <span j-innertext="{{state.age}}"></span></p>
 
 
 
@@ -14,11 +14,33 @@
 
 <script>
     import Component from "./lib/component.js"
-    
+    import { Store } from "./lib/store.js"
 
-    class LittleChildComponent2 extends Component { 
-        onInit(){
-            // console.log("init little child")
+
+    class LittleChildComponent2 extends Component {
+        onInit() {
+            console.log("init little child 2")
+            this.subscribeToStore()
+
+            window.little = this
         }
+
+        subscribeToStore() {
+
+            this.store = Store.getStore("user")
+            this.store.subscribe('age', newAgeValue => {
+                this.setState("age", newAgeValue)
+            })
+        }
+        onChange() {
+
+        }
+
+        // update(){
+        //     super.update()
+
+        //     console.log("little child 2  change")
+        //     this.setState("age",this.getCSSVariable("age"))
+        // }
     }
 </script>

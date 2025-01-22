@@ -37,12 +37,12 @@ export default class JIf extends HTMLElement {
     this.observer.disconnect();
     App.instance.instanciatedComponents.delete(this);
 
-    if (this.onDestroy instanceof Function) this.onDestroy();
+    // if (this.onDestroy instanceof Function) this.onDestroy();
   }
 
   connectedCallback() {
     // console.log("connected callback", performance.now());
-
+    App.instance.instanciatedComponents.add(this);
     this.savedOuterHTML = this.outerHTML;
     this.initObsrever();
     this.update();

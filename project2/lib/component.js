@@ -10,6 +10,7 @@ import {
   convertStringToComponentFriendlyName,
   makeRandomID,
   findMatchingProperty,
+  watchElementRemoval,
 } from "./utils.js";
 
 export default class Component extends HTMLElement {
@@ -22,20 +23,36 @@ export default class Component extends HTMLElement {
   static tagName;
   constructor() {
     super();
+    console.log("#constructor", this.tagName, this.uid);
 
+ 
+
+    App.instance.allComponentsEverCreated.push(this);
     Component.putTagNameInComponentsClass(new.target);
 
     this.uid = makeRandomID();
     this.setAttribute("uid", this.uid);
 
-    // this.useEffectListeners = [];
     const nameOfClassThatCalledThis = this.constructor.name;
 
     this.attachShadow({ mode: "open" });
 
+    console.log(
+      "# start to mess around with innerHMTL",
+      this.tagName,
+      this.uid
+    );
+
     this.shadowRoot.innerHTML =
       (App.instance.components[nameOfClassThatCalledThis] || {}).html || "";
+
     this.shadowRoot.componentReference = this;
+
+    console.log(
+      "# finished  to mess around with innerHMTL",
+      this.tagName,
+      this.uid
+    );
 
     try {
       let stylePart =
@@ -49,14 +66,30 @@ export default class Component extends HTMLElement {
     this.setRootElement();
     this.initObsrever();
     this.enable();
-    this.updateParsedAttributes();
+    // this.updateParsedAttributes();
+
+    this.waitALittleUpdateAndTriggerOnInit();
 
     // if (new.target.name) {
     //   // debugger
     // }
   }
+  waitALittleUpdateAndTriggerOnInit() {
+    setTimeout(() => {
+      this.updateParsedAttributes();
+
+      if (this.onInit instanceof Function) {
+        try {
+          this.onInit();
+        } catch (e) {
+          console.warn(e);
+        }
+      }
+    }, 1);
+  }
 
   enable() {
+    console.log("#enable", this.tagName, this.uid);
     if (this.enabled) return;
     //PUT THE ROOT ELEMENT BACK IN THE SHADOWROOT
     if (this.root instanceof HTMLElement) {
@@ -77,6 +110,8 @@ export default class Component extends HTMLElement {
   onDisable() {}
 
   disable(moveToTemplate) {
+    console.log("#disable", this.tagName, this.uid);
+
     if (!this.enabled) return;
     this.prevDisplayValue =
       this.style.display != "none" ? this.style.display : "";
@@ -96,64 +131,12 @@ export default class Component extends HTMLElement {
     }
   }
 
-  // linkJAttrsWithProperty() {
-  //   if (!this.root) return;
-  //   this.root.querySelectorAll(":host *").forEach((el) => {
-  //     let jAttrs = getAttributesStartingWith(el, "j-");
-  //     for (let jAttr of jAttrs) {
-  //       if (
-  //         jAttr.name.startsWith("j-on") ||
-  //         jAttr.name.toLowerCase() == "j-innerhtml"
-  //       ) {
-  //         continue;
-  //       }
-
-  //       let nameOfAttr = jAttr.name.substr(2, 999);
-
-  //       el[nameOfAttr] = evalInComponent(jAttr.value, this);
-  //       // console.log(
-  //       //   "#########",
-  //       //   nameOfAttr,
-  //       //   jAttr.value,
-  //       //   evalInComponent(jAttr.value, this)
-  //       // );
-  //     }
-  //   });
-  // }
   getTree(hideComponent, showState) {
     return createTree(this, hideComponent, showState);
   }
 
-  // linkJEventsWithMethods() {
-  //   if (!this.root) return;
-  //   this.root.querySelectorAll(":host *").forEach((el) => {
-  //     // console.log("%%%%%%%%", this.tagName, el);
-  //     let jAttrs = getAttributesStartingWith(el, "j-on");
-  //     for (let jAttr of jAttrs) {
-  //       //this is the method's name in the class
-  //       let methodInClass = jAttr.value;
-  //       let nameOfEventListener = jAttr.name.substr(2, 999);
-  //       el[nameOfEventListener] = this[methodInClass].bind(this);
-  //     }
-  //   });
-  // }
-
-  // updateJInnerHTML() {
-  //   if (!this.root) return;
-  //   // UPDATES THE INNERHTML OF ALL ELEMENTS THAT HAVE THE j-innerHTML ATTRIBUTE
-  //   this.root
-  //     .querySelectorAll(":host *[j-innerHTML]:not(:has(> *))")
-  //     .forEach((el) => {
-  //       let val = el.getAttribute("j-innerHTML");
-
-  //       let updatedVal = evalInComponent(val, this);
-
-  //       if (el.innerHTML != updatedVal) el.innerHTML = updatedVal;
-  //     });
-  // }
-
   setState(varName, val) {
-    // console.log("### setState", this.tagName, varName, val);
+    console.log("### setState", this.tagName, varName, val);
     let newVal = val;
     if (val instanceof Object) newVal = encodeAttr(val);
     else if (val === undefined || val === null) newVal = 0;
@@ -192,6 +175,7 @@ export default class Component extends HTMLElement {
   getParentComponent() {
     if (this.parent) return this.parent;
     let obj = this;
+
     while (obj.parentNode) {
       obj = obj.parentNode;
     }
@@ -207,15 +191,7 @@ export default class Component extends HTMLElement {
     if (!this.root) {
       this.root = this.$(":host >*:not(style):not(template)");
     }
-
-    // if (!this.root) debugger;
   }
-  // passStatesToVars() {
-  //   let keys = Object.keys(this.state);
-  //   for (let key of keys) {
-  //     this[key] = this.state[key];
-  //   }
-  // }
 
   updateParsedAttributes() {
     // console.log("### update", this.tagName);
@@ -223,8 +199,6 @@ export default class Component extends HTMLElement {
     this.state = {};
 
     this.observer.disconnect();
-
-    // this.passStatesToVars();
 
     //CHECK THE ATTRIBUTES OF THE COMPONENT, AND PASS THEM TO THE STATE OBJECT
     Array.from(this.attributes).map((k) => {
@@ -252,16 +226,9 @@ export default class Component extends HTMLElement {
         } catch (e) {
           this.state[camelCaseAttrName] = k.value;
         }
-
-        // this.root.setAttribute(k.name, k.value);
-        // this.style.setProperty("--" + k.name, k.value);
       }
     });
 
-    //THESE FUNCTIONS CHECK ALL THE ELEMENTS INSIDE OF THE COMPONENT:
-    // this.linkJEventsWithMethods();
-    // this.linkJAttrsWithProperty();
-    // this.updateJInnerHTML(); //because of uppercase and lower case 'innerHTML' i cannot standarize this with the linkJAttrsWithProperty method
     this.linkJAttrsOfAllElements();
     this.observer.observe(this, this.observerConfig);
   }
@@ -375,29 +342,32 @@ export default class Component extends HTMLElement {
     });
   }
   update() {
+    console.log("#update", this.tagName, this.uid);
     this.updateParsedAttributes();
+    this.updateIfTagsInThisComponent();
 
     let attrs = this.checkWhatAttributesChanged();
 
-    this.updateIfTagsInThisComponent();
     // if (this  instanceof JURL.ForTag ) this.executeForFunctionality();
 
-    if (Object.keys(attrs).length == 0) return;
+    if (Object.keys(attrs).length) {
+      if (App.instance.saveLog) this.saveLog(attrs);
 
-    if (App.instance.saveLog) this.saveLog(attrs);
-
-    if (this.onChange instanceof Function) {
-      try {
-        this.onChange(attrs);
-      } catch (e) {
-        console.warn(e);
+      if (this.onChange instanceof Function) {
+        try {
+          this.onChange(attrs);
+        } catch (e) {
+          console.warn(e);
+        }
       }
     }
 
     // if (!this.isEnabled()) return;
 
     //AND THIS KEEPS GOING ALL THE WAY DOWN THE TREE
+    // console.log("#my children", this.tagName, this.uid, this.getAllChildrenComponents())
     for (let c of this.getAllChildrenComponents()) {
+      // console.log("#updating", c.tagName, c.uid)
       if (c.update instanceof Function && c.isEnabled()) c.update();
     }
   }
@@ -416,6 +386,7 @@ export default class Component extends HTMLElement {
   }
 
   initObsrever() {
+    console.log("#init observer", this.tagName, this.uid);
     this.observerConfig = {
       attributes: true,
       childList: false,
@@ -427,71 +398,27 @@ export default class Component extends HTMLElement {
 
     // Start observing the target node for configured mutations
     this.observer.observe(this, this.observerConfig);
-
-    // Later, you can stop observing
-    // observer.disconnect();
-  }
-  setRoot(el) {
-    this.root = el;
   }
 
-  // replaceCurlyBracketsWithContent() {
-  //   // console.log("#### replace curly brackets");
-  //   if (!this.root) return;
+  // connectedCallback() {
+  //   console.log("#connected", this.tagName, this.uid);
 
-  //   // if (this  instanceof JURL.ForTag ) {
-  //   //   // console.log("# do not change content of {{}} for forTAgs");
-  //   //   return;
-  //   // }
+  //   App.instance.instanciatedComponents.add(this);
+  //   setTimeout(() => {
+  //     this.updateParsedAttributes();
 
-  //   let elementsWithNoChildrenAndCurlyBracketsContent = Array.from(
-  //     this.root.querySelectorAll(":host *:not(style)")
-  //   ).filter(
-  //     (el) => el.childElementCount == 0 && el.innerText.indexOf("{{") > -1
-  //   );
-  //   if (elementsWithNoChildrenAndCurlyBracketsContent.length == 0) return;
-  //   for (let el of elementsWithNoChildrenAndCurlyBracketsContent) {
-  //     if (el.parentNode instanceof JFor) return;
-
-  //     let whereAreTheCurlyBrStarting = el.innerText.indexOf("{{");
-  //     let whereAreTheCurlyBrEnding = el.innerText.indexOf("}}");
-  //     let varInsideCurlyBr = el.innerText.substr(
-  //       whereAreTheCurlyBrStarting + 2,
-  //       whereAreTheCurlyBrEnding - whereAreTheCurlyBrStarting - 2
-  //     );
-  //     let value = this.getState(varInsideCurlyBr);
-
-  //     // console.log(
-  //     //   "!!!!!!!",
-  //     //   el.innerText,
-  //     //   whereAreTheCurlyBrStarting,
-  //     //   whereAreTheCurlyBrEnding,
-  //     //   varInsideCurlyBr,
-  //     //   value
-  //     // );
-  //     el.innerText = el.innerText.replace(
-  //       "{{" + varInsideCurlyBr + "}}",
-  //       value
-  //     );
-  //   }
+  //     if (this.onInit instanceof Function) {
+  //       try {
+  //         this.onInit();
+  //       } catch (e) {
+  //         console.warn(e);
+  //       }
+  //     }
+  //   }, 1);
   // }
 
-  connectedCallback() {
-    App.instance.instanciatedComponents.add(this);
-    setTimeout(() => {
-      this.updateParsedAttributes();
-
-      if (this.onInit instanceof Function) {
-        try {
-          this.onInit();
-        } catch (e) {
-          console.warn(e);
-        }
-      }
-    }, 1);
-  }
-
   disconnectedCallback() {
+    console.log("#disconnected", this.tagName, this.uid);
     this.observer.disconnect();
     App.instance.instanciatedComponents.delete(this);
 
@@ -516,6 +443,7 @@ export default class Component extends HTMLElement {
   }
 
   copyStylesFromParent() {
+    console.log("#copyStylesFromParent", this.tagName, this.uid);
     let parent = this.getParentComponent();
     let style, cloned;
 
@@ -537,24 +465,25 @@ export default class Component extends HTMLElement {
     }
   }
 
-  static create(attrs) {
-    // console.log(this.name);
-    let elem = App.instance.createComponent(
-      "<" + convertStringToComponentFriendlyName(this.name) + " />"
-    );
+  // static create(attrs) {
+  //   // console.log(this.name);
+  //   console.log("#static create", this.tagName, this.uid);
+  //   let elem = App.instance.createComponent(
+  //     "<" + convertStringToComponentFriendlyName(this.name) + " />"
+  //   );
 
-    if (attrs instanceof Object) {
-      let keys = Object.keys(attrs);
-      for (let key of keys) {
-        let value = attrs[key];
-        if (value instanceof Object) {
-          value = encodeAttr(value);
-        }
-        elem.setAttribute(key, value);
-      }
-    }
-    return elem;
-  }
+  //   if (attrs instanceof Object) {
+  //     let keys = Object.keys(attrs);
+  //     for (let key of keys) {
+  //       let value = attrs[key];
+  //       if (value instanceof Object) {
+  //         value = encodeAttr(value);
+  //       }
+  //       elem.setAttribute(key, value);
+  //     }
+  //   }
+  //   return elem;
+  // }
 }
 
 window.JURL = { ...window.JURL, Component };
